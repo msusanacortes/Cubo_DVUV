@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Guía interactiva DVUE para cortar, armar, reforzar, texturizar y reparar el cubo escenográfico de 15 cm en PVC espumado o estireno.">
+<meta name="author" content="MDICD Martha Susana Cortés Romero">
+<title>Cubo escenográfico 15 cm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#0F1517; --surface:#172125; --ink:#EAF1EF; --ink-2:#A6B7B5; --line:#2A3A40;
+  --accent:#5FD1C1; --accent-soft:#12302d; --on-accent:#0B1214;
+  --c1:#5FD1C1; --c2:#F2C14E; --c3:#FF8A7A; --c4:#A7D86E; --c5:#F3D3B0; --c6:#C3A6FF; --c7:#7FC8FF;
+  --tape:#5FD1C1; --wood:#C4955C; --wood-edge:#7a5630;
+  --pvc:#DDE3E1; --pvc-edge:#7d8a88; --est:#CFD9EA; --est-edge:#7c879c;
+  --foam-dot:#9fb0ae; --styro:#EEF3F2; --card-soft:#131B1E;
+  --good:#A7D86E; --good-soft:#1f2e18; --ok:#F2C14E; --ok-soft:#33290f; --bad:#FF8A7A; --bad-soft:#3a1e1b;
+  --matbg:#121B1E; --matgrid:rgba(234,241,239,.05); --matgrid-5:rgba(234,241,239,.1); --matink:#A6B7B5;
+  --shadow:none; --hl:#153b37; --piece-pvc:#1c282c; --piece-est:#1d2638;
+  --display:"Allerta Stencil","Arial Narrow",Arial,sans-serif;
+  --sans:"Work Sans",Arial,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;text-transform:uppercase}
+h2{font-size:1.9rem;line-height:1.05;text-transform:uppercase}
+h3{font-size:1.25rem;line-height:1.1}
+p{margin:0}
+.muted{color:var(--ink-2)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+
+header.top{padding-block:28px 18px;display:grid;gap:10px}
+header.top .lead{max-width:66ch;color:var(--ink-2)}
+.formula{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.9rem;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px 12px;width:fit-content}
+.formula b{color:var(--accent);font-weight:500}
+
+/* sticky controls */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin-inline:-16px;padding:10px 16px}
+.bar-in{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{font:500 .88rem var(--sans);color:var(--ink);background:transparent;border:0;padding:8px 14px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.seg button:disabled{opacity:.4;cursor:not-allowed}
+.field{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--ink-2)}
+.field input[type=number]{width:74px;font:500 .95rem var(--mono);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+.readout{font-family:var(--mono);font-size:.9rem;display:flex;gap:14px;flex-wrap:wrap}
+.readout span b{color:var(--accent);font-weight:500}
+.jump{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.jump a{font-size:.8rem;color:var(--ink-2);text-decoration:none;padding:4px 8px;border-radius:5px}
+.jump a:hover{background:var(--accent-soft);color:var(--ink)}
+button:focus-visible,a:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+section.sec{padding-top:44px;display:grid;gap:18px;scroll-margin-top:70px}
+.sec-head{display:grid;gap:6px;max-width:72ch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+.pad{padding:18px}
+
+/* plan + cube */
+.duo{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px}
+@media (max-width:860px){.duo{grid-template-columns:1fr}}
+.plan-svg{width:100%;height:auto;display:block}
+.plan-svg .sheet{fill:var(--card-soft);stroke:var(--ink-2);stroke-dasharray:5 4}
+.plan-svg .piece{cursor:pointer}
+.plan-svg .piece rect{stroke:var(--ink-2);stroke-width:1.2;transition:fill .15s}
+.plan-svg .piece.pvc rect{fill:var(--piece-pvc)}
+.plan-svg .piece.est rect{fill:var(--piece-est)}
+.plan-svg .piece.full rect{stroke:var(--accent);stroke-width:2}
+.plan-svg .piece.sel rect{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2.6}
+.plan-svg .piece:hover rect{stroke:var(--accent)}
+.plan-svg .pname{font:600 15px var(--sans);fill:var(--ink)}
+.plan-svg .pdim{font:500 13px var(--mono);fill:var(--ink)}
+.plan-svg .tick{stroke:var(--ink-2);stroke-width:1}
+.plan-svg .tick5{stroke:var(--ink);stroke-width:1.2}
+.plan-svg .tlabel{font:400 10.5px var(--mono);fill:var(--ink-2)}
+.plan-svg .cota{stroke:var(--tape);stroke-width:1.4}
+.plan-svg .cotat{font:500 12px var(--mono);fill:var(--tape)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--ink-2);margin-top:10px}
+.legend i{display:inline-block;width:14px;height:10px;border:1.5px solid var(--ink-2);border-radius:2px;vertical-align:-1px;margin-right:6px}
+.legend i.full{border-color:var(--accent);border-width:2px}
+
+table.pieces{width:100%;border-collapse:collapse;font-size:.9rem}
+table.pieces th{text-align:left;font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);padding:8px 10px;border-bottom:1px solid var(--line)}
+table.pieces td{padding:8px 10px;border-bottom:1px solid var(--line)}
+table.pieces td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+table.pieces tr[data-id]{cursor:pointer}
+table.pieces tr[data-id]:hover td{background:var(--card-soft)}
+table.pieces tr.sel td{background:var(--accent-soft)}
+table.pieces tr.total td{font-weight:600;border-bottom:0}
+.tablewrap{overflow-x:auto}
+.check{display:flex;gap:8px;align-items:center;font-size:.88rem;color:var(--ink-2);margin-top:12px}
+.check input{accent-color:var(--accent);width:17px;height:17px}
+
+/* 3D */
+.stage{position:relative;height:380px;border-radius:10px 10px 0 0;overflow:hidden;background-color:var(--matbg);
+  background-image:linear-gradient(var(--matgrid-5) 1px,transparent 1px),linear-gradient(90deg,var(--matgrid-5) 1px,transparent 1px),linear-gradient(var(--matgrid) 1px,transparent 1px),linear-gradient(90deg,var(--matgrid) 1px,transparent 1px);
+  background-size:calc(var(--k,14px)*5) calc(var(--k,14px)*5),calc(var(--k,14px)*5) calc(var(--k,14px)*5),var(--k,14px) var(--k,14px),var(--k,14px) var(--k,14px);
+  perspective:1100px;cursor:grab;touch-action:none;user-select:none}
+.stage:active{cursor:grabbing}
+.scene{position:absolute;left:50%;top:52%;width:0;height:0;transform-style:preserve-3d}
+.bx{position:absolute;left:0;top:0;transform-style:preserve-3d;transition:transform .35s ease}
+.bx .f{position:absolute;left:0;top:0;border:1px solid rgba(0,0,0,.28);backface-visibility:visible}
+.bx .fz{background:var(--c)}
+.bx .fx{background:color-mix(in srgb,var(--c) 82%,#000)}
+.bx .fy{background:color-mix(in srgb,var(--c) 92%,#000)}
+.bx.face{--c:var(--pvc)}
+.bx.face.est{--c:var(--est)}
+.bx.wood{--c:var(--wood)}
+.bx.wood .f{border-color:var(--wood-edge)}
+.bx.hl{--c:var(--tape)}
+.bx.off{display:none}
+.xray .bx.face .f{opacity:.28}
+.xray .bx.face.hl .f{opacity:.75}
+.stage-tag{position:absolute;left:12px;top:10px;font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--matink);opacity:.85}
+.stage-hint{position:absolute;right:12px;bottom:10px;font:400 .75rem var(--sans);color:var(--matink);opacity:.75}
+.cube-ctrl{display:grid;gap:12px;padding:14px 16px;border-top:1px solid var(--line)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{font:500 .85rem var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:7px 12px;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+input[type=range]{accent-color:var(--accent);flex:1;min-width:120px}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.steps li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;padding:8px 8px;border-radius:7px;cursor:pointer}
+.steps li:hover{background:var(--card-soft)}
+.steps li .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:600 .8rem var(--mono);border:1.5px solid var(--line);color:var(--ink-2)}
+.steps li.done .n{border-color:var(--accent);color:var(--accent)}
+.steps li.cur{background:var(--accent-soft)}
+.steps li.cur .n{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.steps li b{font-weight:600}
+.steps li p{font-size:.86rem;color:var(--ink-2)}
+
+/* pegado */
+.glue{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.glue div{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--surface)}
+.glue small{display:block;font:500 .7rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.glue .no{border-color:var(--bad);background:var(--bad-soft)}
+.glue .no small{color:var(--bad)}
+
+/* corte */
+.cutgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.cutcard{padding:12px;display:grid;gap:8px}
+.cutcard svg{width:100%;height:auto;display:block;background:var(--card-soft);border-radius:6px}
+.cutcard .k{font:500 .72rem var(--mono);color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.cutcard p{font-size:.88rem;color:var(--ink-2)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;counter-reset:r;list-style:none;padding:0;margin:0}
+.rules li{counter-increment:r;padding:12px 14px 12px 46px;position:relative;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:.9rem}
+.rules li::before{content:counter(r);position:absolute;left:12px;top:11px;width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font:600 .78rem var(--mono)}
+.warn{border:1px solid var(--bad);background:var(--bad-soft);border-radius:8px;padding:12px 14px;font-size:.9rem}
+.warn b{color:var(--bad)}
+.note{border-left:3px solid var(--tape);padding:4px 0 4px 12px;font-size:.9rem;color:var(--ink-2)}
+
+/* svg art */
+.a-pvc{fill:var(--pvc);stroke:var(--pvc-edge);stroke-width:1.2}
+.a-est{fill:var(--est);stroke:var(--est-edge);stroke-width:1.2}
+.a-wood{fill:var(--wood);stroke:var(--wood-edge);stroke-width:1.2}
+.a-ink{stroke:var(--ink);fill:none;stroke-width:1.4}
+.a-ink2{stroke:var(--ink-2);fill:none;stroke-width:1.2}
+.a-fill-ink{fill:var(--ink)}
+.a-blade{fill:var(--ink-2)}
+.a-table{fill:var(--line);stroke:var(--ink-2);stroke-width:1}
+.a-accent{stroke:var(--accent);fill:none;stroke-width:1.8}
+.a-accent-f{fill:var(--accent)}
+.a-bad{stroke:var(--bad);fill:none;stroke-width:1.6}
+.a-tape{stroke:var(--tape);fill:none;stroke-width:1.4}
+.a-txt{font:500 10.5px var(--mono);fill:var(--ink-2)}
+.a-styro{fill:var(--styro);stroke:var(--ink-2);stroke-width:1}
+.a-card{fill:none;stroke:var(--wood-edge);stroke-width:2}
+.a-foam{fill:var(--tape);fill-opacity:.35;stroke:var(--tape);stroke-width:1}
+.a-soft{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1}
+.a-sand{fill:var(--wood);fill-opacity:.55;stroke:var(--wood-edge);stroke-width:1}
+
+/* refuerzos */
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.rcard{display:grid;grid-template-rows:auto auto 1fr;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.rcard svg{width:100%;height:auto;display:block;background:var(--card-soft);border-bottom:1px solid var(--line)}
+.rcard .hd{display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:12px 14px 0}
+.rcard .a-txt{font-size:8px}
+.bevel-svg .a-txt{font-size:9px}
+.rcard .bd{padding:6px 14px 14px;display:grid;gap:6px;font-size:.87rem}
+.rcard .bd p.c{color:var(--ink-2)}
+.rcard .type{font:500 .68rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.chip{display:inline-block;white-space:nowrap;font:500 .72rem var(--sans);padding:3px 8px;border-radius:999px;border:1px solid}
+.chip.good{color:var(--good);background:var(--good-soft);border-color:var(--good)}
+.chip.ok{color:var(--ok);background:var(--ok-soft);border-color:var(--ok)}
+.chip.bad{color:var(--bad);background:var(--bad-soft);border-color:var(--bad)}
+.recobox{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.recobox div{padding:14px 16px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.recobox div.on{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+
+footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:6px 18px}
+footer a{color:var(--accent)}
+.rcard svg{height:190px;width:100%}
+.cutcard svg{height:170px;width:100%}
+
+/* Escenografía look */
+body{font-size:17px;line-height:1.55;background:var(--bg);color:var(--ink)}
+.wrap,.bar-in{max-width:1080px}
+h1,h2{font-family:var(--display);font-weight:400;text-transform:none;letter-spacing:0}
+h1{font-size:clamp(2.4rem,6vw,4.2rem);line-height:1.05}
+h2{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1}
+h3{font-family:var(--sans);font-weight:600;font-size:1.15rem}
+.eyebrow{display:inline;font-family:var(--sans);font-weight:600;font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bc,var(--accent))}
+header.top{position:relative;padding-block:56px 36px;gap:18px;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center}
+header.top > *{grid-column:1}
+header.top .hero-art{grid-column:2;grid-row:1 / span 5;width:100%;max-width:380px;justify-self:end}
+@media (max-width:760px){header.top{grid-template-columns:1fr}header.top .hero-art{grid-column:1;grid-row:auto;justify-self:center;max-width:280px}}
+header.top .lead{color:var(--ink-2);font-size:1.15rem;max-width:56ch}
+.credits{display:flex;gap:32px;flex-wrap:wrap;border-top:2px solid var(--line);padding-top:18px}
+.credits p:first-child{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--accent)}
+.credits p:last-child{font-weight:600}
+.formula{background:var(--surface);border:0;border-left:6px solid var(--accent);border-radius:8px;font-size:.95rem;padding:12px 18px}
+.formula b{color:var(--accent)}
+section.sec{padding-top:64px;gap:20px}
+section.sec .sec-head p.muted{color:var(--ink-2);font-size:1.05rem}
+#plano{--bc:var(--c1)} #armado{--bc:var(--c2)} #corte{--bc:var(--c3)} #refuerzos{--bc:var(--c4)}
+.progress{display:flex;gap:6px;width:280px;margin-top:4px}
+.progress i{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.progress i.on{background:var(--bc)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.duo{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+@media (max-width:860px){.duo{grid-template-columns:1fr}}
+.bar{background:rgba(15,21,23,.94);border-bottom:1px solid var(--line)}
+.seg{border-radius:8px;border-color:var(--line);background:var(--surface)}
+.seg button{color:var(--ink)}
+.seg button+button{border-left-color:var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.field input[type=number]{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.readout span b{color:var(--accent)}
+.jump a{color:var(--ink-2)}
+.jump a:hover{background:var(--surface);color:var(--ink)}
+.btn{background:var(--surface);border-color:var(--line);color:var(--ink);border-radius:8px}
+.btn.primary{background:var(--c2);border-color:var(--c2);color:#0B1214}
+input[type=range]{accent-color:var(--c2)}
+table.pieces{border:0}
+table.pieces th{font:600 .72rem var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--c1);background:transparent;border-bottom:2px solid var(--line)}
+table.pieces td{border-bottom:1px solid var(--line)}
+table.pieces td+td,table.pieces th+th{border-left:0}
+table.pieces tr[data-id]:hover td{background:var(--card-soft)}
+table.pieces tr.sel td{background:var(--hl)}
+.plan-svg .sheet{fill:var(--card-soft);stroke:var(--ink-2)}
+.plan-svg .piece.full rect{stroke:var(--c1);stroke-width:2.4}
+.plan-svg .piece.sel rect{fill:var(--hl);stroke:var(--c1);stroke-width:3}
+.plan-svg .pname{font-family:var(--sans);font-weight:600}
+.legend i.full{border-color:var(--c1)}
+.note{border-left:4px solid var(--c1);color:var(--ink-2)}
+.check input{accent-color:var(--c1)}
+.stage{height:400px;border-radius:10px 10px 0 0;background-color:var(--matbg);
+  background-image:radial-gradient(ellipse 45% 55% at 50% 42%,rgba(170,235,225,.14),transparent 70%),linear-gradient(var(--matgrid-5) 1px,transparent 1px),linear-gradient(90deg,var(--matgrid-5) 1px,transparent 1px),linear-gradient(var(--matgrid) 1px,transparent 1px),linear-gradient(90deg,var(--matgrid) 1px,transparent 1px);
+  background-size:100% 100%,calc(var(--k,14px)*5) calc(var(--k,14px)*5),calc(var(--k,14px)*5) calc(var(--k,14px)*5),var(--k,14px) var(--k,14px),var(--k,14px) var(--k,14px)}
+.stage-tag{font-family:var(--sans);font-weight:600;letter-spacing:.18em;color:var(--c2)}
+.bx .f{border-color:rgba(11,18,20,.55)}
+.bx.hl{--c:var(--accent)}
+.steps li:hover{background:var(--card-soft)}
+.steps li .n{border-color:var(--line);color:var(--ink-2)}
+.steps li.done .n{border-color:var(--c2);color:var(--c2)}
+.steps li.cur{background:var(--card-soft);box-shadow:inset 6px 0 0 var(--c2)}
+.steps li.cur .n{background:var(--c2);border-color:var(--c2);color:#0B1214}
+.steps li p{color:var(--ink-2)}
+.glue div{background:var(--card-soft);border:0;border-left:6px solid var(--c2);border-radius:8px}
+.glue small{font-family:var(--sans);letter-spacing:.16em;color:var(--c2)}
+.glue .no{border-left-color:var(--c3);background:var(--bad-soft)}
+.glue .no small{color:var(--c3)}
+.rules li{background:var(--surface);border:0;border-left:6px solid var(--c3);border-radius:8px}
+.rules li::before{background:var(--c3);color:#0B1214;border:0}
+.cutcard .k{color:var(--c3);font-family:var(--sans);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.75rem}
+.cutcard svg,.bevel-svg{background:var(--card-soft) !important}
+.warn{border:0;border-left:6px solid var(--c3);background:var(--bad-soft);color:var(--ink)}
+.warn b{color:var(--c3)}
+.a-blade{fill:var(--ink-2)}
+.a-fill-ink{fill:var(--ink-2)}
+.a-table{fill:#1f2b2f;stroke:var(--line)}
+.recobox div{background:var(--surface);border:0;border-left:6px solid var(--line);border-radius:10px}
+.recobox div.on{border-left-color:var(--c4);box-shadow:none;background:#1f2e18}
+.recobox .eyebrow{color:var(--c4);font-size:.72rem}
+.filters .seg button[aria-pressed="true"]{background:var(--c4);color:#0B1214}
+.rcard{background:var(--surface);border:1px solid var(--line)}
+.rcard svg{background:var(--card-soft);border-bottom:1px solid var(--line)}
+.rcard .type{font-family:var(--sans);font-weight:600;letter-spacing:.16em;color:var(--c4);font-size:.68rem}
+.chip{font-family:var(--sans);font-weight:600;border:0;padding:3px 10px}
+.chip::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;vertical-align:1px}
+.rules{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cutgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.rcards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.plan-svg{max-width:640px;margin:0 auto}
+@media (max-width:560px){.rules,.cutgrid,.rcards{grid-template-columns:1fr}}
+footer{display:block;border-top:2px solid var(--line);margin-top:56px;padding-top:20px;font-size:.95rem;color:var(--ink-2)}
+footer p+p{margin-top:4px}
+footer a{color:var(--accent)}
+
+/* chooser + ficha */
+.chooser{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:8px}
+@media (max-width:640px){.chooser{grid-template-columns:1fr}}
+.choice{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:8px;padding:18px 20px;border-radius:10px;background:var(--surface);border-left:8px solid var(--line);transition:background .15s}
+.choice:hover{background:#1d292d}
+.choice:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.choice[aria-pressed="true"]{border-left-color:var(--c5);background:#16302d}
+.choice .t{font-family:var(--display);font-size:1.6rem;line-height:1.1}
+.choice .k{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ink-2)}
+.choice[aria-pressed="true"] .k{color:var(--c5)}
+.choice p{color:var(--ink-2);font-size:.95rem}
+.choice .sel{font-size:.8rem;font-weight:600;color:var(--c5)}
+.choice[aria-pressed="false"] .sel{visibility:hidden}
+#ficha{--bc:var(--c5)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.tile{background:var(--surface);border-radius:10px;padding:14px 16px;display:grid;gap:4px;border-top:4px solid var(--c5)}
+.tile small{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--ink-2)}
+.tile b{font-family:var(--mono);font-weight:500;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.tile span{font-size:.85rem;color:var(--ink-2)}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cols2 > .panel{align-content:start}
+@media (max-width:760px){.cols2{grid-template-columns:1fr}}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.list li label{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;padding:7px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.95rem}
+.list li:last-child label{border-bottom:0}
+.list input{accent-color:var(--c5);width:17px;height:17px;margin-top:3px}
+.list input:checked + span{color:var(--ink-2);text-decoration:line-through}
+.list em{font-style:normal;color:var(--ink-2);font-size:.85rem;display:block}
+.build{list-style:none;margin:0;padding:0;counter-reset:b;display:grid;gap:8px}
+.build li{counter-increment:b;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;background:var(--card-soft);border-radius:8px;padding:10px 12px}
+.build li::before{content:counter(b);width:30px;height:30px;border-radius:50%;background:var(--c5);color:#0B1214;display:grid;place-items:center;font:600 .85rem var(--mono)}
+.build li b{display:block}
+.build li span{color:var(--ink-2);font-size:.9rem}
+.buy{width:100%;border-collapse:collapse;font-size:.92rem}
+.buy th{text-align:left;font:600 .7rem var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--c5);padding:8px 10px;border-bottom:2px solid var(--line)}
+.buy td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.buy a{color:var(--c5)}
+.small{font-size:.85rem;color:var(--ink-2)}
+
+/* rescate 15x15 */
+.fixbtn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:12px;padding:12px 18px;border-radius:10px;background:#12302d;border:2px solid var(--c1);color:var(--ink);font-weight:600;font-size:1rem;width:fit-content}
+.fixbtn:hover{background:#174540}
+.fixbtn:focus-visible{outline:2px solid var(--c1);outline-offset:3px}
+.fixbtn .ic{width:28px;height:28px;border-radius:50%;background:var(--c1);color:#0B1214;display:grid;place-items:center;font-weight:700}
+.fixbtn[aria-expanded="true"] .ic{transform:rotate(45deg)}
+.fix{border-left:8px solid var(--c1);display:grid;gap:18px}
+.fix h3{font-family:var(--display);font-weight:400;font-size:1.7rem}
+.fix-pieces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.fix-pieces{grid-template-columns:1fr}}
+.fp{background:var(--card-soft);border-radius:8px;padding:12px;display:grid;gap:6px;justify-items:center;text-align:center}
+.fp svg{width:100%;max-width:170px;height:auto}
+.fp b{font-size:1rem}
+.fp span{font-size:.88rem;color:var(--ink-2)}
+.fix-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.fix-opts{grid-template-columns:1fr}}
+.fo{background:var(--card-soft);border-radius:8px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.fo .k{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--c1)}
+.fo ol{margin:0;padding-left:1.2rem;display:grid;gap:6px;font-size:.93rem}
+.fo.off{opacity:.55}
+
+/* texturas */
+#texturas{--bc:var(--c6)}
+#texturas .seg button[aria-pressed="true"]{background:var(--c6);color:#0B1214}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.tcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.tcard svg{display:block;width:100%;height:96px}
+.tcard .bd{padding:12px 14px 14px;display:grid;gap:6px;align-content:start;font-size:.9rem}
+.tcard .type{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--c6)}
+.tcard h3{font-size:1.05rem}
+.tcard .fx{display:flex;flex-wrap:wrap;gap:4px}
+.tcard .fx span{font-size:.75rem;padding:2px 8px;border-radius:999px;background:var(--card-soft);color:var(--ink)}
+.tcard p.how{color:var(--ink-2)}
+.tcard p.care{font-size:.82rem;color:var(--c3)}
+.tcount{font-size:.85rem;color:var(--ink-2)}
+
+/* iconos + anatomía */
+.ico{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--card-soft);border:1.5px solid var(--bc,var(--c5));color:var(--ink);flex:none}
+.ico svg{width:20px;height:20px}
+.list li label{grid-template-columns:20px 34px 1fr;align-items:center}
+.list input{margin-top:0}
+.build li{grid-template-columns:38px 40px 1fr;align-items:center}
+.build .ico{width:40px;height:40px}
+.build .ico svg{width:24px;height:24px}
+.tile{grid-template-columns:1fr auto;column-gap:10px}
+.tile .ico{grid-row:1 / span 3;grid-column:2;align-self:start;width:40px;height:40px}
+.tile .ico svg{width:22px;height:22px}
+.tile small,.tile b,.tile span{grid-column:1}
+.glue div{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center}
+.glue div .ico{grid-row:1 / span 2;--bc:var(--c2)}
+.glue .no .ico{--bc:var(--c3)}
+.anat{display:grid;gap:10px}
+.anat svg{width:100%;height:auto;display:block}
+.anat .lbl{font:600 13px 'Work Sans',Arial,sans-serif;fill:var(--ink)}
+.anat .sub{font:400 12px 'Work Sans',Arial,sans-serif;fill:var(--ink-2)}
+.anat .lead{stroke:var(--ink-2);stroke-width:1;fill:none}
+.anat .dot{fill:var(--c5)}
+.anat .num{font:700 12px 'IBM Plex Mono',monospace;fill:#0B1214}
+
+/* problemas */
+#problemas{--bc:var(--c7)}
+.pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:760px){.pcards{grid-template-columns:1fr}}
+.pcard{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c7);border-radius:10px;display:grid;grid-template-columns:150px 1fr;gap:14px;padding:14px}
+@media (max-width:480px){.pcard{grid-template-columns:1fr}}
+.pcard.dim{opacity:.65}
+.pcard svg{width:100%;height:auto;background:var(--card-soft);border-radius:8px;align-self:start}
+.pcard .bd{display:grid;gap:8px;align-content:start;font-size:.9rem}
+.pcard h3{font-size:1.1rem}
+.pcard .lab{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--c7)}
+.pcard ol{margin:0;padding-left:1.15rem;display:grid;gap:4px}
+.pcard p.why,.pcard p.prev{color:var(--ink-2)}
+.pcard .who{font-size:.72rem;font-weight:600;padding:2px 9px;border-radius:999px;background:var(--card-soft);color:var(--c7);width:fit-content}
+@media (prefers-reduced-motion:reduce){.bx{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">DVUE · Tu proyecto individual</span>
+    <h1>Tu cubo escenográfico</h1>
+    <p class="lead">Guía interactiva para cortarlo, armarlo y reforzarlo. Elige el material y el grosor real de tu lámina: el plano, las medidas, el armado en 3D y los refuerzos se ajustan solos.</p>
+    <div class="formula">Medida del esqueleto <b>S = 15 − 2 × grosor</b></div>
+    <div class="chooser" role="group" aria-label="Elige cómo construir tu cubo">
+      <button class="choice" id="c-pvc" type="button" aria-pressed="true"><span class="k">Opción A</span><span class="t">Construir en PVC espumado</span><p>Lámina de 6 mm. Rígida, admite bisel a 45° y aerosoles.</p><span class="sel">Seleccionada</span></button>
+      <button class="choice" id="c-est" type="button" aria-pressed="false"><span class="k">Opción B</span><span class="t">Construir en estireno</span><p>Calibre 80 (2 mm). Más barato y ligero; se marca y se quiebra, esqueleto obligatorio.</p><span class="sel">Seleccionada</span></button>
+    </div>
+    <div class="credits"><div><p>Guía elaborada por</p><p>MDICD Martha Susana Cortés Romero</p></div></div>
+    <svg class="hero-art" viewBox="0 0 400 420" role="img" aria-label="Cubo escenográfico con la cara frontal abierta bajo un cenital">
+      <polygon points="170,0 230,0 340,360 60,360" fill="#BFF3EA" opacity=".09"/>
+      <polygon points="185,0 215,0 290,360 110,360" fill="#BFF3EA" opacity=".07"/>
+      <ellipse cx="200" cy="372" rx="170" ry="30" fill="#BFF3EA" opacity=".16"/>
+      <polygon points="80,160 200,100 320,160 200,220" fill="#23343A"/>
+      <polygon points="80,160 200,220 200,380 80,320" fill="#1A272C"/>
+      <polygon points="200,220 320,160 320,320 200,380" fill="none" stroke="#5FD1C1" stroke-width="4" stroke-dasharray="10 6"/>
+      <polygon points="206,228 314,172 314,314 206,370" fill="#5FD1C1" opacity=".1"/>
+      <polygon points="200,380 320,320 200,260 80,320" fill="#2E4148" opacity=".6"/>
+      <circle cx="250" cy="282" r="7" fill="#EAF1EF"/><rect x="245" y="290" width="10" height="34" fill="#EAF1EF"/>
+    </svg>
+  </header>
+</div>
+
+<div class="bar" role="region" aria-label="Material y grosor">
+  <div class="bar-in">
+    <div class="seg" role="group" aria-label="Material">
+      <button id="m-pvc" type="button" aria-pressed="true">PVC espumado</button>
+      <button id="m-est" type="button" aria-pressed="false">Estireno</button>
+    </div>
+    <label class="field" for="thick">Grosor real <input id="thick" type="number" min="1" max="10" step="0.1" value="6"> mm</label>
+    <div class="seg" role="group" aria-label="Tipo de unión">
+      <button id="u-tope" type="button" aria-pressed="true">A tope</button>
+      <button id="u-ing" type="button" aria-pressed="false">Inglete 45°</button>
+    </div>
+    <div class="readout"><span>S = <b id="r-s">13.8</b> cm</span><span>Palito <b id="r-wood">1.5</b> m</span></div>
+    <nav class="jump" aria-label="Secciones">
+      <a href="#ficha">Ficha</a><a href="#plano">Plano</a><a href="#armado">Armado</a><a href="#corte">Corte</a><a href="#refuerzos">Refuerzos</a><a href="#texturas">Texturas</a><a href="#problemas">Problemas</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="sec" id="ficha">
+    <div class="sec-head">
+      <span class="eyebrow">1 · Ficha de construcción</span><div class="progress" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <h2 id="f-title">Ficha de construcción</h2>
+      <p class="muted" id="f-lead"></p>
+    </div>
+    <div class="panel pad anat"><h3>Anatomía de tu cubo</h3><p class="small">Vista separada: el esqueleto adentro, las caras encima y la textura sobre la cara lijada.</p><div class="tablewrap"><svg id="anat" viewBox="0 0 860 440" role="img" aria-label="Cubo en vista separada con sus capas"></svg></div></div>
+    <div class="tiles" id="f-tiles"></div>
+    <div class="cols2">
+      <div class="panel pad"><h3 style="margin-bottom:6px">Lista de materiales</h3><p class="small" style="margin-bottom:6px">Marca lo que ya tienes.</p><ul class="list" id="f-mat"></ul></div>
+      <div class="panel pad"><h3 style="margin-bottom:6px">Herramientas</h3><p class="small" style="margin-bottom:6px">Pídelas prestadas en el taller antes de comprar.</p><ul class="list" id="f-tools"></ul></div>
+    </div>
+    <div class="panel pad" style="display:grid;gap:12px"><h3>Construcción completa, de la lámina al barniz</h3><ol class="build" id="f-build"></ol></div>
+    <div class="cols2">
+      <div class="panel pad" style="display:grid;gap:10px"><h3>Acabado</h3><div id="f-finish" style="display:grid;gap:8px;font-size:.95rem"></div></div>
+      <div class="panel pad" style="display:grid;gap:10px"><h3>Errores que arruinan el cubo</h3><div id="f-errors" style="display:grid;gap:8px"></div></div>
+    </div>
+  </section>
+
+  <section class="sec" id="plano">
+    <div class="sec-head">
+      <span class="eyebrow">2 · Medidas y plano</span><div class="progress" aria-hidden="true"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+      <h2>Plano de corte y lista de piezas</h2>
+      <p class="muted" id="plan-lead">Las 6 caras salen de un rectángulo de 49 × 33 cm. Toca una pieza para verla en el cubo.</p>
+      <button class="fixbtn" id="fix-open" type="button" aria-expanded="false" aria-controls="fix"><span class="ic">+</span>¿Ya tienes tus 6 caras de 15 × 15? Así lo resuelves</button>
+    </div>
+    <div class="panel pad fix" id="fix" hidden>
+      <div style="display:grid;gap:6px">
+        <h3>Tengo las 6 caras de 15 × 15</h3>
+        <p class="muted" id="fix-lead"></p>
+      </div>
+      <div class="fix-opts">
+        <div class="fo"><span class="k">Opción A · Recortar (PVC y estireno)</span><p style="font-size:.93rem">Tapa y base se quedan igual. Solo recortas cuatro caras para que queden por dentro y el cubo mida exactamente 15 cm.</p></div>
+        <div class="fo" id="fix-b"></div>
+      </div>
+      <div class="fix-pieces" id="fix-pieces"></div>
+      <div class="fo"><span class="k">Cómo recortar sin perder la escuadra</span><ol id="fix-steps"></ol></div>
+      <div class="row"><button class="btn primary" id="fix-go" type="button">Ver el armado en 3D</button><button class="btn" id="fix-close" type="button">Cerrar</button></div>
+    </div>
+    <div class="duo">
+      <div class="panel pad">
+        <div class="tablewrap"><svg id="plan" class="plan-svg" role="img" aria-label="Plano de corte de las 6 caras sobre la lámina"></svg></div>
+        <div class="legend"><span><i class="full"></i>Cara completa: tapa todos los cantos</span><span><i></i>Cara recortada: va por dentro</span></div>
+      </div>
+      <div class="panel pad">
+        <h3 style="margin-bottom:8px">Lista de piezas</h3>
+        <div class="tablewrap">
+          <table class="pieces" id="pieces">
+            <thead><tr><th>Pieza</th><th>Cant.</th><th>Medida (cm)</th><th>Material</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <label class="check" for="ribs"><input id="ribs" type="checkbox"> Agregar costillas centrales (una por cara, para masilla gruesa)</label>
+        <p class="note" style="margin-top:12px">Mide el grosor con regla o vernier antes de trazar: una lámina “de 6 mm” a veces mide 5.8. Cambia el número de arriba y todo se recalcula.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="armado">
+    <div class="sec-head">
+      <span class="eyebrow">3 · Armado</span><div class="progress" aria-hidden="true"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      <h2>Armado: esqueleto primero, caras después</h2>
+      <p class="muted">Arrastra el cubo para girarlo. Avanza paso a paso o separa las caras para ver cómo cada una tapa el canto de la anterior.</p>
+    </div>
+    <div class="duo">
+      <div class="panel" style="overflow:hidden">
+        <div class="stage" id="stage" aria-label="Cubo en 3D: arrastra para girar">
+          <span class="stage-tag">Escenario · cuadrícula de 1 cm</span>
+          <div class="scene" id="scene"></div>
+          <span class="stage-hint">Arrastra para girar</span>
+        </div>
+        <div class="cube-ctrl">
+          <div class="row">
+            <button class="btn" id="prev" type="button">← Paso anterior</button>
+            <button class="btn primary" id="next" type="button">Siguiente paso →</button>
+            <button class="btn" id="xray" type="button" aria-pressed="false">Ver interior</button>
+            <button class="btn" id="reset" type="button">Vista inicial</button>
+          </div>
+          <div class="row"><label for="explode" class="muted" style="font-size:.85rem">Separar caras</label><input id="explode" type="range" min="0" max="6" step="0.1" value="0"></div>
+        </div>
+      </div>
+      <div class="panel pad" style="display:grid;gap:14px;align-content:start">
+        <ol class="steps" id="steps"></ol>
+      </div>
+    </div>
+    <div class="panel pad" style="display:grid;gap:12px">
+      <h3>Qué pega con qué</h3>
+      <div class="glue" id="glue"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="corte">
+    <div class="sec-head">
+      <span class="eyebrow">4 · Corte</span><div class="progress" aria-hidden="true"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+      <h2 id="cut-title">Cómo cortar para que quede perfecto</h2>
+      <p class="muted" id="cut-lead"></p>
+    </div>
+    <ol class="rules">
+      <li><b>Traza desde la esquina de fábrica.</b> Ya viene en escuadra; nunca desde un borde cortado a mano.</li>
+      <li><b>Corta primero una tira de 15 cm</b> a todo lo largo y luego divídela. Todas las piezas comparten el mismo borde recto.</li>
+      <li><b>Fija la regla con prensas y usa un tope.</b> Corta todas las piezas iguales sin mover la regla.</li>
+      <li><b>Revisa las 4 esquinas con la escuadra</b> y empareja con taco de lija, nunca con lija suelta: redondea el canto.</li>
+    </ol>
+    <div class="cutgrid" id="cutgrid"></div>
+    <div id="bevel" class="panel pad" style="display:grid;gap:10px"></div>
+  </section>
+
+  <section class="sec" id="refuerzos">
+    <div class="sec-head">
+      <span class="eyebrow">5 · Refuerzos y rellenos</span><div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div>
+      <h2>Tipos de refuerzo y relleno</h2>
+      <p class="muted">El refuerzo va en aristas y esquinas para sostener la escuadra; el relleno ocupa el hueco para que las caras no se hundan o para dar peso. Los dibujos muestran la esquina vista desde arriba, con el grosor de tu lámina.</p>
+    </div>
+    <div class="recobox" id="reco"></div>
+    <div class="filters">
+      <div class="seg" role="group" aria-label="Filtrar">
+        <button type="button" data-f="all" aria-pressed="true">Todos</button>
+        <button type="button" data-f="ref" aria-pressed="false">Refuerzos</button>
+        <button type="button" data-f="rel" aria-pressed="false">Rellenos</button>
+      </div>
+      <span class="muted" style="font-size:.85rem" id="filter-note"></span>
+    </div>
+    <div class="rcards" id="rcards"></div>
+  </section>
+
+  <section class="sec" id="texturas">
+    <div class="sec-head">
+      <span class="eyebrow">6 · Texturas y elementos</span><div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div>
+      <h2>Qué ponerle a tu cubo</h2>
+      <p class="muted">Materiales baratos o reciclados para dar textura, formas y efectos. Casi todo se pega con pegamento blanco sobre la cara ya lijada, y se sella con gesso o pegamento blanco diluido antes de pintar. Prueba siempre en tu cara extra.</p>
+    </div>
+    <div class="filters">
+      <div class="seg" role="group" aria-label="Filtrar texturas">
+        <button type="button" data-t="all" aria-pressed="true">Todos</button>
+        <button type="button" data-t="tex" aria-pressed="false">Texturas</button>
+        <button type="button" data-t="for" aria-pressed="false">Formas y relieves</button>
+        <button type="button" data-t="efe" aria-pressed="false">Efectos</button>
+        <button type="button" data-t="luz" aria-pressed="false">Luz y transparencia</button>
+      </div>
+      <span class="tcount" id="tcount"></span>
+    </div>
+    <div class="tcards" id="tcards"></div>
+  </section>
+
+  <section class="sec" id="problemas">
+    <div class="sec-head">
+      <span class="eyebrow">7 · Si algo sale mal</span><div class="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i></div>
+      <h2>Cómo arreglar tu cubo</h2>
+      <p class="muted">Los problemas más comunes, por qué pasan y cómo resolverlos sin empezar de cero. Guarda tu cara extra: casi todas las reparaciones se prueban primero en ella.</p>
+    </div>
+    <div class="pcards" id="pcards"></div>
+  </section>
+
+  <footer>
+    <p>Guía elaborada por MDICD Susana Cortés · Instagram: <a href="https://www.instagram.com/m.susana.cortes.r/">@m.susana.cortes.r</a></p>
+    <p>Correo: <span>susana.cortes@academicos.udg.mx</span></p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var state = { mat:'pvc', t:{pvc:6, est:2}, union:'tope', step:7, explode:0, xray:false, rx:-24, ry:-36, sel:null, ribs:false, filter:'all' };
+  try { var sv = JSON.parse(localStorage.getItem('cubo15') || 'null'); if (sv && sv.t) { state.mat = sv.mat === 'est' ? 'est' : 'pvc'; state.t.pvc = +sv.t.pvc || 6; state.t.est = +sv.t.est || 2; } } catch(e) {}
+  function save(){ try { localStorage.setItem('cubo15', JSON.stringify({mat:state.mat, t:state.t})); } catch(e) {} }
+
+  var $ = function(id){ return document.getElementById(id); };
+  function f(n){ var r = Math.round(n*10)/10; return (Math.abs(r - Math.round(r)) < 1e-9) ? String(Math.round(r)) : r.toFixed(1); }
+  function tcm(){ return state.t[state.mat] / 10; }
+  function S(){ return 15 - (state.union==='mol'?1:2)*tcm(); }
+  function sForm(){ return state.union==='mol' ? '15 − grosor' : '15 − 2 × grosor'; }
+  function matName(){ return state.mat === 'pvc' ? 'PVC espumado' : 'Estireno'; }
+
+  function pieces(){
+    var s = S(), ing = state.union !== 'tope', m = matName() + ' ' + f(state.t[state.mat]) + ' mm';
+    return [
+      {id:'tapa', name:'Tapa', w:15, h:15, full:true, mat:m},
+      {id:'base', name:'Base', w:15, h:15, full:true, mat:m},
+      {id:'frente', name:'Frente', w:15, h: ing?15:s, full:ing, mat:m},
+      {id:'fondo', name:'Fondo', w:15, h: ing?15:s, full:ing, mat:m},
+      {id:'lat1', name:'Lateral 1', w: ing?15:s, h: ing?15:s, full:ing, mat:m},
+      {id:'lat2', name:'Lateral 2', w: ing?15:s, h: ing?15:s, full:ing, mat:m}
+    ];
+  }
+  function woodLen(){ var s = S(); return 4*s + 8*(s-2) + (state.ribs ? 6*(s-2) : 0); }
+
+  /* ---------- Plan ---------- */
+  function renderPlan(){
+    var P = pieces(), K = 12, ml = 38, mt = 34;
+    var pos = [[1,1],[17,1],[33,1],[1,17],[17,17],[33,17]];
+    var W = 49, H = 33, vw = ml + W*K + 18, vh = mt + H*K + 34;
+    var svg = $('plan'); svg.setAttribute('viewBox','0 0 '+vw+' '+vh);
+    var o = [];
+    o.push('<rect class="sheet" x="'+ml+'" y="'+mt+'" width="'+(W*K)+'" height="'+(H*K)+'" rx="3"/>');
+    for (var i=0;i<=W;i++){ var x = ml+i*K, big = i%5===0; o.push('<line class="'+(big?'tick5':'tick')+'" x1="'+x+'" y1="'+(mt-(big?10:5))+'" x2="'+x+'" y2="'+mt+'"/>'); if(big) o.push('<text class="tlabel" x="'+x+'" y="'+(mt-14)+'" text-anchor="middle">'+i+'</text>'); }
+    for (var j=0;j<=H;j++){ var y = mt+j*K, bg = j%5===0; o.push('<line class="'+(bg?'tick5':'tick')+'" x1="'+(ml-(bg?10:5))+'" y1="'+y+'" x2="'+ml+'" y2="'+y+'"/>'); if(bg) o.push('<text class="tlabel" x="'+(ml-14)+'" y="'+(y+3.5)+'" text-anchor="end">'+j+'</text>'); }
+    P.forEach(function(p,k){
+      var x = ml + pos[k][0]*K, y = mt + pos[k][1]*K, w = p.w*K, h = p.h*K;
+      var cls = 'piece ' + state.mat + (p.full?' full':'') + (state.sel===p.id?' sel':'');
+      o.push('<g class="'+cls+'" data-id="'+p.id+'" tabindex="0" role="button" aria-label="'+p.name+' '+f(p.w)+' por '+f(p.h)+' centímetros">');
+      o.push('<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="2"/>');
+      o.push('<text class="pname" x="'+(x+w/2)+'" y="'+(y+h/2-4)+'" text-anchor="middle">'+p.name+'</text>');
+      o.push('<text class="pdim" x="'+(x+w/2)+'" y="'+(y+h/2+14)+'" text-anchor="middle">'+f(p.w)+' × '+f(p.h)+'</text>');
+      if (!p.full){
+        // show the trimmed strip that remains of the 15 cm band
+        if (p.h < 15) o.push('<line class="cota" x1="'+(x+4)+'" y1="'+(y+h+ (15-p.h)*K/2)+'" x2="'+(x+w-4)+'" y2="'+(y+h+(15-p.h)*K/2)+'" stroke-dasharray="3 3"/>');
+      }
+      o.push('</g>');
+    });
+    var trim = f(15 - S());
+    if (state.union === 'tope') o.push('<text class="cotat" x="'+(ml+W*K)+'" y="'+(mt+H*K+22)+'" text-anchor="end">línea punteada: sobrante de '+trim+' cm</text>');
+    svg.innerHTML = o.join('');
+    svg.querySelectorAll('.piece').forEach(function(g){
+      g.addEventListener('click', function(){ select(g.getAttribute('data-id')); });
+      g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(g.getAttribute('data-id')); } });
+    });
+    $('plan-lead').textContent = state.union === 'mol'
+      ? 'Las 6 caras miden 15 × 15 y salen de dos tiras de 15 cm, sin recortar nada. Se arman en molinete: cada cara tapa el canto de la siguiente, y el cubo queda de '+f(15+tcm())+' cm por fuera. Toca una pieza para verla en el cubo.'
+      : state.union === 'tope'
+      ? 'Las 6 caras salen de un rectángulo de 49 × 33 cm. Corta dos tiras de 15 cm y en la segunda recorta '+trim+' cm de sobra. Toca una pieza para verla en el cubo.'
+      : 'Con inglete las 6 caras miden 15 × 15 y llevan los 4 cantos biselados a 45°. Toca una pieza para verla en el cubo.';
+  }
+
+  function renderTable(){
+    var P = pieces(), s = S(), tb = $('pieces').querySelector('tbody'), o = [];
+    var groups = state.union !== 'tope'
+      ? [{ids:['tapa','base','frente','fondo','lat1','lat2'], name: state.union==='ing' ? 'Caras (bisel 45°)' : 'Caras iguales (molinete)', n:6, d:'15 × 15'}]
+      : [{ids:['tapa','base'], name:'Tapa y base', n:2, d:'15 × 15'},{ids:['frente','fondo'], name:'Frente y fondo', n:2, d:'15 × '+f(s)},{ids:['lat1','lat2'], name:'Laterales', n:2, d:f(s)+' × '+f(s)}];
+    groups.forEach(function(g){
+      var sel = g.ids.indexOf(state.sel) >= 0;
+      o.push('<tr data-id="'+g.ids[0]+'" class="'+(sel?'sel':'')+'"><td>'+g.name+'</td><td class="num">'+g.n+'</td><td class="num">'+g.d+'</td><td>'+P[0].mat+'</td></tr>');
+    });
+    o.push('<tr><td>Postes</td><td class="num">4</td><td class="num">'+f(s)+'</td><td>Palito 1 × 1 cm</td></tr>');
+    o.push('<tr><td>Travesaños</td><td class="num">8</td><td class="num">'+f(s-2)+'</td><td>Palito 1 × 1 cm</td></tr>');
+    if (state.ribs) o.push('<tr><td>Costillas centrales</td><td class="num">6</td><td class="num">'+f(s-2)+'</td><td>Palito 1 × 1 cm</td></tr>');
+    o.push('<tr class="total"><td>Palito total</td><td></td><td class="num">'+f(woodLen()/100)+' m</td><td>+ 1 cara extra de práctica</td></tr>');
+    tb.innerHTML = o.join('');
+    tb.querySelectorAll('tr[data-id]').forEach(function(tr){ tr.addEventListener('click', function(){ select(tr.getAttribute('data-id')); }); });
+  }
+
+  function select(id){ state.sel = (state.sel === id) ? null : id; if (state.sel) state.step = 7; renderPlan(); renderTable(); build(); renderSteps(); }
+
+  /* ---------- 3D ---------- */
+  var K = 14;
+  function sizeK(){ var w = $('stage').clientWidth; K = Math.max(9, Math.min(14, w/26)); $('stage').style.setProperty('--k', K+'px'); }
+  var boxes = [];
+  function mkBox(o){
+    var el = document.createElement('div'); el.className = 'bx ' + o.cls;
+    var W = o.w*K, H = o.h*K, D = o.d*K;
+    var faces = [['fz',W,H,'translateZ('+D/2+'px)'],['fz',W,H,'rotateY(180deg) translateZ('+D/2+'px)'],['fx',D,H,'rotateY(90deg) translateZ('+W/2+'px)'],['fx',D,H,'rotateY(-90deg) translateZ('+W/2+'px)'],['fy',W,D,'rotateX(90deg) translateZ('+H/2+'px)'],['fy',W,D,'rotateX(-90deg) translateZ('+H/2+'px)']];
+    faces.forEach(function(q){ var fe = document.createElement('div'); fe.className = 'f '+q[0]; fe.style.width = q[1]+'px'; fe.style.height = q[2]+'px'; fe.style.marginLeft = (-q[1]/2)+'px'; fe.style.marginTop = (-q[2]/2)+'px'; fe.style.transform = q[3]; el.appendChild(fe); });
+    o.el = el; boxes.push(o); $('scene').appendChild(el);
+  }
+  function place(o){ var e = o.n ? state.explode : 0, n = o.n || [0,0,0]; o.el.style.transform = 'translate3d('+((o.x+n[0]*e)*K)+'px,'+((o.y+n[1]*e)*K)+'px,'+((o.z+n[2]*e)*K)+'px)'; }
+  function build(){
+    sizeK(); $('scene').innerHTML = ''; boxes = [];
+    var t = tcm(), s = S(), p = s/2 - 0.5, off = 7.5 - t/2, ing = state.union === 'ing', fc = 'face ' + state.mat;
+    // skeleton
+    [-1,1].forEach(function(sx){
+      var st = sx < 0 ? 1 : 2;
+      [-1,1].forEach(function(sz){ mkBox({cls:'wood', w:1,h:s,d:1, x:sx*p,y:0,z:sz*p, step:st}); });
+      [-1,1].forEach(function(sy){ mkBox({cls:'wood', w:1,h:1,d:s-2, x:sx*p,y:sy*p,z:0, step:st}); });
+    });
+    [-1,1].forEach(function(sy){ [-1,1].forEach(function(sz){ mkBox({cls:'wood', w:s-2,h:1,d:1, x:0,y:sy*p,z:sz*p, step:3}); }); });
+    // faces
+    if (state.union === 'mol'){
+      var h = t/2;
+      mkBox({id:'lat1', cls:fc, w:t,h:15,d:15, x:-7.5,y:-h,z:h, n:[-1,0,0], step:4});
+      mkBox({id:'lat2', cls:fc, w:t,h:15,d:15, x:7.5,y:h,z:-h, n:[1,0,0], step:4});
+      mkBox({id:'frente', cls:fc, w:15,h:15,d:t, x:h,y:-h,z:7.5, n:[0,0,1], step:5});
+      mkBox({id:'fondo', cls:fc, w:15,h:15,d:t, x:-h,y:h,z:-7.5, n:[0,0,-1], step:5});
+      mkBox({id:'base', cls:fc, w:15,h:t,d:15, x:-h,y:7.5,z:h, n:[0,1,0], step:6});
+      mkBox({id:'tapa', cls:fc, w:15,h:t,d:15, x:h,y:-7.5,z:-h, n:[0,-1,0], step:7});
+      refresh3d(); return;
+    }
+    var L = ing ? 15 : s, Fh = ing ? 15 : s;
+    mkBox({id:'lat1', cls:fc, w:t,h:L,d:L, x:-off,y:0,z:0, n:[-1,0,0], step:4});
+    mkBox({id:'lat2', cls:fc, w:t,h:L,d:L, x:off,y:0,z:0, n:[1,0,0], step:4});
+    mkBox({id:'frente', cls:fc, w:15,h:Fh,d:t, x:0,y:0,z:off, n:[0,0,1], step:5});
+    mkBox({id:'fondo', cls:fc, w:15,h:Fh,d:t, x:0,y:0,z:-off, n:[0,0,-1], step:5});
+    mkBox({id:'base', cls:fc, w:15,h:t,d:15, x:0,y:off,z:0, n:[0,1,0], step:6});
+    mkBox({id:'tapa', cls:fc, w:15,h:t,d:15, x:0,y:-off,z:0, n:[0,-1,0], step:7});
+    refresh3d();
+  }
+  function refresh3d(){
+    boxes.forEach(function(o){ o.el.classList.toggle('off', o.step > state.step); o.el.classList.toggle('hl', !!o.id && o.id === state.sel); place(o); });
+    $('scene').style.transform = 'rotateX('+state.rx+'deg) rotateY('+state.ry+'deg)';
+    $('stage').classList.toggle('xray', state.xray);
+    $('xray').setAttribute('aria-pressed', String(state.xray));
+    $('xray').textContent = state.xray ? 'Caras sólidas' : 'Ver interior';
+  }
+  (function drag(){
+    var st = $('stage'), down = false, lx = 0, ly = 0;
+    st.addEventListener('pointerdown', function(e){ down = true; lx = e.clientX; ly = e.clientY; try{ st.setPointerCapture(e.pointerId); }catch(_){} });
+    st.addEventListener('pointermove', function(e){ if(!down) return; state.ry += (e.clientX-lx)*0.5; state.rx = Math.max(-80, Math.min(80, state.rx - (e.clientY-ly)*0.5)); lx = e.clientX; ly = e.clientY; $('scene').style.transform = 'rotateX('+state.rx+'deg) rotateY('+state.ry+'deg)'; });
+    ['pointerup','pointercancel','pointerleave'].forEach(function(ev){ st.addEventListener(ev, function(){ down = false; }); });
+  })();
+
+  function stepData(){
+    var s = f(S()), ing = state.union === 'ing';
+    if (state.union === 'mol') return [
+      ['Marco A', '2 postes de '+s+' cm y 2 travesaños de '+f(S()-2)+' cm. Pégalo sobre la escuadra metálica.'],
+      ['Marco B', 'Igual al primero. Ponlos uno sobre otro: deben coincidir exactos.'],
+      ['Une los marcos', '4 travesaños entre los dos marcos. El esqueleto mide '+s+' cm por lado (15 − grosor). Revisa las diagonales.'],
+      ['Laterales', '15 × 15. Cada lateral se recorre '+f(tcm()*10/2)+' mm hacia un lado: un canto sobresale para tapar a la cara vecina y el otro queda cubierto.'],
+      ['Frente y fondo', '15 × 15. Siguen el giro: tapan el canto de un lateral y dejan el otro lateral tapándolas a ellas.'],
+      ['Base', '15 × 15. Cierra el molinete por abajo: revisa que ninguna arista deje ver dos cantos.'],
+      ['Tapa', '15 × 15. Déjala suelta si será caja de utilería. El cubo mide '+f(15+tcm())+' cm por fuera.']
+    ];
+    return [
+      ['Marco A', '2 postes de '+s+' cm y 2 travesaños de '+f(S()-2)+' cm. Pégalo sobre la escuadra metálica.'],
+      ['Marco B', 'Igual al primero. Ponlos uno sobre otro: deben coincidir exactos.'],
+      ['Une los marcos', '4 travesaños entre los dos marcos. Mide las diagonales de cada cara: si miden igual, está en escuadra.'],
+      ['Laterales', ing ? '15 × 15 con bisel. Se apoyan sobre el esqueleto.' : s+' × '+s+'. Se pegan sobre el esqueleto, a ras de los palitos.'],
+      ['Frente y fondo', ing ? '15 × 15 con bisel. El bisel cierra contra el lateral sin dejar hueco.' : '15 × '+s+'. Tapan el canto de los laterales.'],
+      ['Base', '15 × 15. Tapa todos los cantos de abajo.'],
+      ['Tapa', '15 × 15. Déjala suelta si el cubo será caja de utilería: el esqueleto sirve de tope.']
+    ];
+  }
+  function renderSteps(){
+    var ol = $('steps'), d = stepData();
+    ol.innerHTML = d.map(function(x,i){ var n=i+1, c = n<state.step?'done':(n===state.step?'cur':''); return '<li class="'+c+'" data-s="'+n+'" tabindex="0"><span class="n">'+n+'</span><div><b>'+x[0]+'</b><p>'+x[1]+'</p></div></li>'; }).join('');
+    ol.querySelectorAll('li').forEach(function(li){
+      var go = function(){ state.step = +li.getAttribute('data-s'); renderSteps(); refresh3d(); };
+      li.addEventListener('click', go); li.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+    });
+    $('prev').disabled = state.step <= 1; $('next').disabled = state.step >= 7;
+  }
+
+  function renderGlue(){
+    var g = state.mat === 'pvc' ? [
+      ['Palito con palito','Pegamento blanco o cianoacrilato'],
+      ['Cara con palito','Cianoacrilato en gel o cemento de contacto'],
+      ['Cara con cara (aristas)','Cianoacrilato en gel o cemento para PVC'],
+      ['Relleno de unicel','Pegamento blanco o silicón frío'],
+      ['Evita','Silicón caliente: se despega del PVC liso', true]
+    ] : [
+      ['Palito con palito','Pegamento blanco o cianoacrilato'],
+      ['Cara con palito','Cianoacrilato en gel'],
+      ['Cara con cara (aristas)','Cemento líquido para modelismo de estireno o cianoacrilato'],
+      ['Relleno de unicel','Pegamento blanco o silicón frío'],
+      ['Prohibido','Cemento de contacto y cemento para PVC: arrugan y derriten el estireno', true]
+    ];
+    $('glue').innerHTML = g.map(function(x){ return '<div class="'+(x[2]?'no':'')+'">'+ico(x[2]?'eye':iconFor(x[1]))+'<small>'+x[0]+'</small><span>'+x[1]+'</span></div>'; }).join('');
+  }
+
+  /* ---------- Corte ---------- */
+  function foamDefs(){ return '<defs><pattern id="foam" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="var(--foam-dot)"/><circle cx="5.5" cy="5" r=".8" fill="var(--foam-dot)"/></pattern></defs>'; }
+  function pvcCut(depth, through){
+    var y = 52, th = 34, x0 = 14, x1 = 186, cx = 100, o = [foamDefs()];
+    o.push('<rect x="0" y="'+(y+th)+'" width="200" height="14" class="a-table"/>');
+    if (through){
+      o.push('<rect x="'+x0+'" y="'+y+'" width="'+(cx-2-x0)+'" height="'+th+'" class="a-pvc"/><rect x="'+x0+'" y="'+y+'" width="'+(cx-2-x0)+'" height="'+th+'" fill="url(#foam)"/>');
+      o.push('<rect x="'+(cx+2)+'" y="'+y+'" width="'+(x1-cx-2)+'" height="'+th+'" class="a-pvc"/><rect x="'+(cx+2)+'" y="'+y+'" width="'+(x1-cx-2)+'" height="'+th+'" fill="url(#foam)"/>');
+    } else {
+      o.push('<path d="M'+x0+' '+y+'H'+(cx-3)+'L'+cx+' '+(y+depth)+'L'+(cx+3)+' '+y+'H'+x1+'V'+(y+th)+'H'+x0+'Z" class="a-pvc"/>');
+      o.push('<path d="M'+x0+' '+y+'H'+(cx-3)+'L'+cx+' '+(y+depth)+'L'+(cx+3)+' '+y+'H'+x1+'V'+(y+th)+'H'+x0+'Z" fill="url(#foam)"/>');
+    }
+    var by = through ? y+th-4 : y+depth-2;
+    o.push('<path d="M'+(cx-5)+' '+(by-44)+'L'+(cx+5)+' '+(by-44)+'L'+(cx+1)+' '+by+'L'+cx+' '+by+'Z" class="a-blade"/>');
+    o.push('<rect x="'+(cx-8)+'" y="'+(by-62)+'" width="16" height="20" rx="3" class="a-fill-ink" opacity=".75"/>');
+    o.push('<text class="a-txt" x="'+x1+'" y="'+(y-6)+'" text-anchor="end">6 mm</text>');
+    return '<svg viewBox="0 0 200 104" role="img" aria-label="Corte de PVC en sección">'+o.join('')+'</svg>';
+  }
+  function estPanel(k){
+    var o = [], y = 50, th = 8;
+    if (k===0){
+      o.push('<rect x="0" y="'+(y+th)+'" width="200" height="14" class="a-table"/>');
+      o.push('<path d="M14 '+y+'H97L100 '+(y+3)+'L103 '+y+'H186V'+(y+th)+'H14Z" class="a-est"/>');
+      o.push('<path d="M95 '+(y-44)+'L105 '+(y-44)+'L101 '+(y+2)+'L100 '+(y+2)+'Z" class="a-blade"/><rect x="92" y="'+(y-62)+'" width="16" height="20" rx="3" class="a-fill-ink" opacity=".75"/>');
+      o.push('<text class="a-txt" x="186" y="'+(y-6)+'" text-anchor="end">surco, no atraviesa</text>');
+    } else if (k===1){
+      o.push('<rect x="0" y="'+(y+th)+'" width="100" height="40" class="a-table"/>');
+      o.push('<path d="M14 '+y+'H97L100 '+(y+3)+'L103 '+y+'H186V'+(y+th)+'H14Z" class="a-est"/>');
+      o.push('<path d="M100 '+(y-18)+'V'+(y-4)+'" class="a-tape"/><text class="a-txt" x="100" y="'+(y-22)+'" text-anchor="middle">surco al filo</text>');
+      o.push('<text class="a-txt" x="50" y="'+(y+th+26)+'" text-anchor="middle">mesa</text>');
+    } else if (k===2){
+      o.push('<rect x="0" y="'+(y+th)+'" width="100" height="40" class="a-table"/>');
+      o.push('<rect x="14" y="'+y+'" width="86" height="'+th+'" class="a-est"/>');
+      o.push('<g transform="rotate(32 100 '+(y+th)+')"><rect x="101" y="'+y+'" width="85" height="'+th+'" class="a-est"/></g>');
+      o.push('<path d="M168 '+(y+22)+'q10 18 -4 34" class="a-accent" marker-end="url(#ar)"/>');
+      o.push('<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--accent)"/></marker></defs>');
+      o.push('<text class="a-txt" x="140" y="'+(y-10)+'" text-anchor="middle">dobla firme hacia abajo</text>');
+    } else {
+      var pv = state.mat === 'pvc'; th = pv ? 34 : 8; y = pv ? 52 : 50;
+      o.push('<rect x="0" y="'+(y+th)+'" width="200" height="14" class="a-table"/>');
+      o.push('<rect x="30" y="'+y+'" width="110" height="'+th+'" class="'+(pv?'a-pvc':'a-est')+'"/>');
+      o.push('<rect x="140" y="'+(y-30)+'" width="26" height="'+(th+30)+'" rx="2" class="a-wood"/>');
+      o.push('<path d="M140 '+(y-30)+'V'+(y+th)+'" stroke="var(--ink-2)" stroke-width="3" stroke-dasharray="2 2"/>');
+      o.push('<text class="a-txt" x="153" y="'+(y-36)+'" text-anchor="middle">taco con lija</text>');
+    }
+    return '<svg viewBox="0 0 200 104" role="img" aria-label="Estireno: marcar y quebrar">'+o.join('')+'</svg>';
+  }
+  function renderCut(){
+    var g = $('cutgrid'), bev = $('bevel');
+    if (state.mat === 'pvc'){
+      $('cut-lead').textContent = 'El PVC de 6 mm se corta en varias pasadas suaves con hoja nueva, la hoja vertical y sin inclinar el cúter. Nunca de un solo tajo.';
+      g.innerHTML = [
+        [pvcCut(6,false),'Pasada 1','Surco guía muy superficial: solo marca el camino de la hoja.'],
+        [pvcCut(18,false),'Pasadas 2–3','Misma presión, mismo surco. La regla no se mueve.'],
+        [pvcCut(34,true),'Pasadas 4–5','La hoja atraviesa. Si tienes que forzar, cambia la hoja.'],
+        [estPanel(3),'Emparejar','Taco de lija contra el canto hasta que la escuadra cierre sin luz.']
+      ].map(function(c){ return '<div class="panel cutcard">'+c[0]+'<span class="k">'+c[1]+'</span><p>'+c[2]+'</p></div>'; }).join('');
+      bev.hidden = false;
+      bev.innerHTML = '<h3>Si eliges inglete (45°)</h3><div class="duo" style="grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);align-items:center">'+bevelSvg()+'<div style="display:grid;gap:8px;font-size:.9rem"><p>Marca en el canto la línea de 45° con transportador o escuadra de 45°. Haz un primer corte muy superficial y profundiza 3–5 veces sobre el mismo surco, manteniendo el ángulo de la mano.</p><p class="muted">Un cortador de bisel para passe-partout deja el ángulo fijo y sale mucho más parejo. Prueba en la cara extra antes de biselar las piezas finales.</p></div></div>';
+    } else {
+      $('cut-lead').textContent = 'El estireno no se corta de un tajo: se marca con 3–4 pasadas de cúter y se quiebra sobre el filo de la mesa.';
+      g.innerHTML = [
+        [estPanel(0),'Marca','3–4 pasadas de cúter sobre la regla. El surco no atraviesa la lámina.'],
+        [estPanel(1),'Acomoda','Pon el surco justo en el filo de la mesa, con la pieza buena encima.'],
+        [estPanel(2),'Quiebra','Dobla hacia abajo con un movimiento firme; truena limpio por el surco.'],
+        [estPanel(3),'Lija','Taco de lija en el canto para quitar la rebaba y dejarlo recto.']
+      ].map(function(c){ return '<div class="panel cutcard">'+c[0]+'<span class="k">'+c[1]+'</span><p>'+c[2]+'</p></div>'; }).join('');
+      bev.hidden = false;
+      bev.innerHTML = '<div class="warn"><b>El estireno de 2 mm no admite bisel a 45°.</b> Úsalo solo con unión a tope sobre el esqueleto. Pide calibre 80 (unos 2 mm): con calibre 40 o 60 las caras se hunden al poner masilla.</div>';
+    }
+  }
+  function bevelSvg(){
+    return '<svg class="bevel-svg" viewBox="0 0 220 150" role="img" aria-label="Unión a inglete de dos caras" style="width:100%;max-width:380px;height:auto;background:var(--card-soft);border-radius:6px">'+foamDefs()+
+      '<path d="M30 110H170L140 80H30Z" class="a-pvc"/><path d="M30 110H170L140 80H30Z" fill="url(#foam)"/>'+
+      '<path d="M170 110V10H140V80Z" class="a-pvc"/><path d="M170 110V10H140V80Z" fill="url(#foam)"/>'+
+      '<rect x="118" y="58" width="22" height="22" class="a-wood"/>'+
+      '<path d="M140 80L170 110" class="a-accent" stroke-dasharray="4 3"/>'+
+      '<text class="a-txt" x="178" y="104">45°</text><text class="a-txt" x="40" y="130">cara A</text><text class="a-txt" x="178" y="30">cara B</text><text class="a-txt" x="112" y="52" text-anchor="end">palito del esqueleto</text>'+
+      '</svg>';
+  }
+
+  /* ---------- Refuerzos ---------- */
+  function pt(){ return Math.max(3, state.t[state.mat]*2.2); }
+  function plateCls(){ return state.mat === 'pvc' ? 'a-pvc' : 'a-est'; }
+  function corner(inner){
+    var p = pt(), c = plateCls();
+    return '<rect x="30" y="10" width="'+p+'" height="100" class="'+c+'"/><rect x="30" y="'+(110-p)+'" width="120" height="'+p+'" class="'+c+'"/>' + inner(30+p, 110-p, p);
+  }
+  function boxTop(inner){
+    var p = pt(), c = plateCls();
+    return '<rect x="30" y="8" width="100" height="100" class="'+c+'"/><rect x="'+(30+p)+'" y="'+(8+p)+'" width="'+(100-2*p)+'" height="'+(100-2*p)+'" fill="var(--card-soft)" stroke="var(--pvc-edge)"/>' + inner(30+p, 8+p, 100-2*p);
+  }
+  var R = [
+    {id:'palito', type:'ref', name:'Palito de madera 1 × 1 cm', how:'Esqueleto completo: 4 postes y 8 travesaños en las aristas interiores.', care:'Córtalo a 90° con caja de ingletes y segueta.',
+      s:{pvc:['Recomendado','good'], est:['Recomendado','good']},
+      art:function(){ return corner(function(x,y){ return '<rect x="'+x+'" y="'+(y-22)+'" width="22" height="22" class="a-wood"/>'; }); }},
+    {id:'perfil', type:'ref', name:'Perfil en L de estireno', how:'Ángulo de modelismo en las 12 aristas por dentro; se suelda con cemento para estireno.', care:'Pide perfil de 6–10 mm; los delgados se doblan.',
+      s:{pvc:['Sí, con cianoacrilato','ok'], est:['Ideal: mismo material','good']},
+      art:function(){ return corner(function(x,y){ return '<path d="M'+x+' '+(y-28)+'h4v24h24v4h-28z" class="a-est" stroke-width="1.4"/>'; }); }},
+    {id:'tirasL', type:'ref', name:'Tiras en L de retazo', how:'Dos tiras de 1 cm de tu misma lámina, pegadas en ángulo en cada arista.', care:'Revisa la escuadra mientras seca.',
+      s:{pvc:['Ideal: sale de sobrantes','good'], est:['Sí','ok']},
+      art:function(){ return corner(function(x,y,p){ var c = plateCls(); return '<rect x="'+x+'" y="'+(y-30)+'" width="'+p+'" height="30" class="'+c+'"/><rect x="'+(x+p)+'" y="'+(y-p)+'" width="26" height="'+p+'" class="'+c+'"/>'; }); }},
+    {id:'cartela', type:'ref', name:'Escuadras triangulares (cartelas)', how:'Triángulos de 3–4 cm en las 8 esquinas interiores; mantienen el 90°.', care:'Solas no alcanzan en estireno: combínalas con palitos.',
+      s:{pvc:['Sí, de retazo de 3 mm','ok'], est:['Solo con palitos','ok']},
+      art:function(){ return corner(function(x,y){ return '<path d="M'+x+' '+(y-36)+'V'+y+'H'+(x+36)+'Z" class="'+plateCls()+'"/>'; }); }},
+    {id:'costillas', type:'ref', name:'Costillas o cruceta interior', how:'Tabiques con ranura a media altura, encajados en cruz dentro del cubo.', care:'Mide el hueco real (S) antes de cortar.',
+      s:{pvc:['Solo si carga peso','ok'], est:['Recomendado con masilla gruesa','good']},
+      art:function(){ return boxTop(function(x,y,w){ return '<rect x="'+x+'" y="'+(y+w/2-3)+'" width="'+w+'" height="6" class="a-wood"/><rect x="'+(x+w/2-3)+'" y="'+y+'" width="6" height="'+w+'" class="a-wood"/>'; }); }},
+    {id:'unicel', type:'rel', name:'Bloque de unicel', how:'Bloque cortado a S × S × S que sostiene las caras por dentro.', care:'Pégalo con pegamento blanco o silicón frío: cemento para estireno, de contacto y aerosoles lo derriten.',
+      s:{pvc:['Sí','ok'], est:['Sí','ok']},
+      art:function(){ return '<defs><pattern id="sty" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="3.4" fill="none" stroke="var(--foam-dot)"/></pattern></defs>'+boxTop(function(x,y,w){ return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+w+'" class="a-styro"/><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+w+'" fill="url(#sty)"/>'; }); }},
+    {id:'carton', type:'rel', name:'Cartón corrugado en retícula', how:'Tiras ranuradas que se encajan como separador de huevos.', care:'Séllalo si vas a usar masillas base agua.',
+      s:{pvc:['Sí, el más barato','ok'], est:['Sí, el más barato','ok']},
+      art:function(){ return boxTop(function(x,y,w){ var o='',i; for(i=1;i<4;i++){ o+='<line x1="'+(x+w*i/4)+'" y1="'+y+'" x2="'+(x+w*i/4)+'" y2="'+(y+w)+'" class="a-card"/><line x1="'+x+'" y1="'+(y+w*i/4)+'" x2="'+(x+w)+'" y2="'+(y+w*i/4)+'" class="a-card"/>'; } return o; }); }},
+    {id:'hule', type:'rel', name:'Hule espuma', how:'Acolchado interior si el cubo se lanza o se manipula mucho en escena.', care:'No es estructural: no evita que las caras se hundan.',
+      s:{pvc:['Opcional','ok'], est:['Opcional','ok']},
+      art:function(){ return '<defs><pattern id="hul" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width=".6"/></pattern></defs>'+boxTop(function(x,y,w){ return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+w+'" fill="url(#hul)"/>'; }); }}
+  ];
+  function renderRefs(){
+    var list = R.filter(function(r){ return state.filter === 'all' || r.type === state.filter; });
+    $('rcards').innerHTML = list.map(function(r){
+      var s = r.s[state.mat];
+      return '<article class="rcard"><svg viewBox="0 0 160 118" role="img" aria-label="'+r.name+'">'+r.art()+'</svg>'+
+        '<div class="hd"><div><span class="type">'+(r.type==='ref'?'Refuerzo':'Relleno')+'</span><h3>'+r.name+'</h3></div><span class="chip '+s[1]+'">'+s[0]+'</span></div>'+
+        '<div class="bd"><p>'+r.how+'</p><p class="c">'+r.care+'</p></div></article>';
+    }).join('');
+    $('filter-note').textContent = 'Valoración para ' + matName().toLowerCase() + ' de ' + f(state.t[state.mat]) + ' mm';
+    $('reco').innerHTML =
+      '<div class="'+(state.mat==='pvc'?'on':'')+'"><span class="eyebrow">PVC 6 mm</span><h3 style="margin:4px 0 6px">Basta con refuerzo</h3><p class="muted" style="font-size:.9rem">Esqueleto de palitos o tiras en L de retazo. Relleno solo si el cubo carga peso.</p></div>'+
+      '<div class="'+(state.mat==='est'?'on':'')+'"><span class="eyebrow">Estireno 2 mm</span><h3 style="margin:4px 0 6px">Refuerzo y relleno</h3><p class="muted" style="font-size:.9rem">Esqueleto de palitos o perfiles de estireno y costillas o bloque de unicel si lleva masilla.</p></div>';
+    document.querySelectorAll('.filters [data-f]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === state.filter)); });
+  }
+
+
+
+  /* ---------- Iconos ---------- */
+  var IP = {
+    sheet:'M3 9l9-4 9 4-9 4z M3 9v3l9 4 9-4V9 M12 13v3',
+    caliper:'M3 5h18v4H3z M6 9v10h3v-6 M15 9v4 M18 9v4 M8 5v4 M12 5v2',
+    cube:'M12 3 20 7.5v9L12 21 4 16.5v-9z M4 7.5 12 12l8-4.5 M12 12v9',
+    union:'M4 20V5h3v12h13v3z',
+    cutter:'M3 18 14 7l3 3L6 21H3z M14 7l2-2 3 3-2 2 M10 11l3 3',
+    stick:'M4 17 17 4l3 3L7 20z M9 12l3 3',
+    boxes:'M3 11h8v8H3z M13 11h8v8h-8z M8 3h8v7H8z',
+    ruler:'M3 15 15 3l6 6L9 21z M7 11l2 2 M10 8l2 2 M13 5l2 2',
+    square:'M4 3v17h17z M8 12v4h4',
+    saw:'M3 15h18v5H3z M6 15V9h12v6 M9 4l6 6',
+    sand:'M4 10h16v5H4z M4 15h16v3H4z M7 18v1 M11 18v1 M15 18v1',
+    spatula:'M14 3l7 7-4 2-5-5z M13 8 4 17l3 3 9-9',
+    table:'M3 10h18v3H3z M5 13v8 M19 13v8 M12 6l4 4',
+    brush:'M18 3l3 3-8 8-3-3z M10 11c-3 0-6 2-6 5v4h4c3 0 5-3 5-6',
+    glue:'M9 3h6v3H9z M8 6h8l1 4v11H7V10z M10 15h4',
+    drop:'M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z',
+    spray:'M8 8h8v13H8z M10 4h4v4h-4z M18 5h2 M18 8h3 M18 11h2',
+    goggles:'M3 10c0-2 2-3 4-3h10c2 0 4 1 4 3v2c0 2-2 3-4 3h-2l-3-2-3 2H7c-2 0-4-1-4-3z',
+    pencil:'M4 20l4-1 11-11-3-3L5 16z M14 7l3 3',
+    snap:'M3 13h9 M12 13l7-5 M3 16h18',
+    block:'M5 8h14v11H5z M5 8l3-3h14l-3 3 M19 19l3-3V5 M9 12h0 M13 14h0 M10 16h0',
+    jar:'M7 8h10v12H7z M8 4h8v4H8z M9 13h6',
+    layers:'M12 3l9 5-9 5-9-5z M3 12l9 5 9-5 M3 16l9 5 9-5',
+    angle:'M4 20h16 M4 20 16 8 M10 20a6 6 0 0 0-1.8-4.2',
+    roller:'M5 4h12v5H5z M17 6h3v5h-8v3 M11 14h2v7h-2z',
+    pliers:'M8 3l2 8 M16 3l-2 8 M10 11l-3 10 M14 11l3 10 M9 11h6',
+    measure:'M4 12a7 7 0 1 1 14 0v7h-7a7 7 0 0 1-7-7z M11 12h.01 M18 19h3',
+    eye:'M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z'
+  };
+  function ico(n){ return '<span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="'+(IP[n]||IP.layers)+'"/></svg></span>'; }
+  function iconFor(t){
+    t = t.toLowerCase();
+    var R = [[/lámina|forra/,'sheet'],[/mide|calibre|vernier/,'caliper'],[/esqueleto/,'cube'],[/palito/,'stick'],[/cianoacrilato|cemento/,'drop'],[/sin clavos|pegamento/,'glue'],[/lija|taco|empareja/,'sand'],[/primer|imprim|aerosol/,'spray'],[/gesso|barniz/,'jar'],[/pinta|pintura|pincel|acabado/,'brush'],[/pasta|resanador|masilla|textura|espátula/,'spatula'],[/lentes|guantes|cubrebocas/,'goggles'],[/unicel|relleno|cartón/,'block'],[/cúter/,'cutter'],[/quiebra/,'snap'],[/corta|marca/,'cutter'],[/regla/,'ruler'],[/escuadra/,'square'],[/ingletes|segueta/,'saw'],[/mesa/,'table'],[/traza/,'pencil'],[/bisel|45°/,'angle'],[/da diente/,'sand']];
+    for (var i=0;i<R.length;i++) if (R[i][0].test(t)) return R[i][1];
+    return 'layers';
+  }
+  /* ---------- Anatomía ---------- */
+  function renderAnat(){
+    var t = tcm(), s = S(), h = s/2, k = 11, cx = 460, cy = 250, pvc = state.mat === 'pvc';
+    var faceFill = pvc ? '#DDE3E1' : '#CFD9EA', faceSide = pvc ? '#AEB7B5' : '#9FAAC0', faceTop = pvc ? '#EEF2F1' : '#E2E9F4';
+    function P(x,y,z){ return [cx + (x - z)*0.866*k, cy + (x + z)*0.5*k - y*k]; }
+    function poly(pts, fill, stroke){ return '<polygon points="'+pts.map(function(q){ var r = P(q[0],q[1],q[2]); return r[0].toFixed(1)+','+r[1].toFixed(1); }).join(' ')+'" fill="'+fill+'" stroke="'+(stroke||'#0B1214')+'" stroke-width="1" stroke-linejoin="round"/>'; }
+    function box(x0,x1,y0,y1,z0,z1,top,sx,sz){ return poly([[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],top)+poly([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],sx)+poly([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],sz); }
+    var o = [], p = h - 0.5, W1 = '#D9A866', W2 = '#A87840', W3 = '#C4955C';
+    // skeleton: back bars first
+    var bars = [];
+    [-1,1].forEach(function(a){ [-1,1].forEach(function(b){
+      bars.push([a*p-0.5,a*p+0.5,-h,h,b*p-0.5,b*p+0.5]);                 // postes
+      bars.push([-h+1,h-1,a*p-0.5,a*p+0.5,b*p-0.5,b*p+0.5]);             // travesaños x
+      bars.push([a*p-0.5,a*p+0.5,b*p-0.5,b*p+0.5,-h+1,h-1]);             // travesaños z
+    }); });
+    bars.sort(function(A,B){ return (A[0]+A[1]+A[4]+A[5]-(A[2]+A[3])*0.2) - (B[0]+B[1]+B[4]+B[5]-(B[2]+B[3])*0.2); });
+    bars.forEach(function(b){ o.push(box(b[0],b[1],b[2],b[3],b[4],b[5],W1,W2,W3)); });
+    var E = 6;
+    // top (tapa) lifted
+    o.push(box(-7.5,7.5,7.5-t+E,7.5+E,-7.5,7.5,faceTop,faceSide,faceFill));
+    // texture patch on top
+    var r = rng(17), tex = [];
+    for (var i=0;i<26;i++){ var x = -6.5 + r()*13, z = -6.5 + r()*13, w = 0.6 + r()*1.3; tex.push(poly([[x,7.5+E,z],[x+w,7.5+E,z],[x+w,7.5+E,z+w*0.8],[x,7.5+E,z+w*0.8]], ['#9C968D','#77716A','#8B857C','#B1AA9F'][i%4], '#4d4a45')); }
+    o.push('<g clip-path="url(#topclip)">'+tex.join('')+'</g>');
+    var tc = [[-7.5,7.5+E,-7.5],[7.5,7.5+E,-7.5],[7.5,7.5+E,1],[-7.5,7.5+E,1]].map(function(q){ var r2 = P(q[0],q[1],q[2]); return r2[0].toFixed(1)+','+r2[1].toFixed(1); }).join(' ');
+    // +x lateral and +z frente pushed out
+    var fx0 = pvc||true ? 7.5 - t : 0;
+    o.push(box(7.5-t+E,7.5+E,-h,h,-h,h,faceTop,faceSide,faceFill));
+    o.push(box(-7.5,7.5,-h,h,7.5-t+E,7.5+E,faceTop,faceSide,faceFill));
+    // paint swatch on frente
+    o.push(poly([[-6,-h+1.5,7.5+E],[-1,-h+1.5,7.5+E],[-1,h-1.5,7.5+E],[-6,h-1.5,7.5+E]],'#5FD1C1','none'));
+    o.push(poly([[-6,-h+1.5,7.5+E],[-1,-h+1.5,7.5+E],[-1,-h+5,7.5+E],[-6,-h+5,7.5+E]],'#2E7A70','none'));
+    // labels
+    function lead(pt, tx, ty, n, title, sub, anchor){
+      var q = P(pt[0],pt[1],pt[2]), ex = anchor==='end' ? tx + 8 : tx - 8;
+      return '<path class="lead" d="M'+q[0].toFixed(1)+' '+q[1].toFixed(1)+' L'+ex+' '+(ty-4)+'"/><circle class="dot" cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="3.5"/>'+
+        '<circle cx="'+(anchor==='end'? tx+20 : tx-20)+'" cy="'+(ty-4)+'" r="10" fill="var(--c5)"/><text class="num" x="'+(anchor==='end'? tx+20 : tx-20)+'" y="'+(ty)+'" text-anchor="middle">'+n+'</text>'+
+        '<text class="lbl" x="'+(anchor==='end'? tx : tx)+'" y="'+ty+'" text-anchor="'+(anchor==='end'?'end':'start')+'">'+title+'</text>'+
+        '<text class="sub" x="'+tx+'" y="'+(ty+16)+'" text-anchor="'+(anchor==='end'?'end':'start')+'">'+sub+'</text>';
+    }
+    var mat = pvc ? 'PVC espumado' : 'Estireno';
+    o.push(lead([p+0.5,-2,p], 200, 300, 1, 'Esqueleto de palitos', '1 × 1 cm · S = '+f(s)+' cm', 'end'));
+    o.push(lead([0,7.5+E,-5], 250, 52, 2, 'Textura', 'Sobre la cara lijada', 'end'));
+    o.push(lead([4,7.5+E,4], 670, 52, 3, 'Tapa y base · 15 × 15', 'Tapan todos los cantos', 'start'));
+    o.push(lead([7.5+E,0,-2], 670, 250, 4, 'Laterales · '+f(s)+' × '+f(s), mat+' '+f(state.t[state.mat])+' mm', 'start'));
+    o.push(lead([-3.5,-2,7.5+E], 200, 405, 5, 'Frente y fondo · 15 × '+f(s), 'Pintura y barniz al final', 'end'));
+    $('anat').innerHTML = '<defs><clipPath id="topclip"><polygon points="'+[[-7.5,7.5+E,-7.5],[7.5,7.5+E,-7.5],[7.5,7.5+E,7.5],[-7.5,7.5+E,7.5]].map(function(q){ var r2 = P(q[0],q[1],q[2]); return r2[0].toFixed(1)+','+r2[1].toFixed(1); }).join(' ')+'"/></clipPath></defs>'+o.join('');
+  }
+
+  /* ---------- Ficha ---------- */
+  var FICHA = {
+    pvc: {
+      title:'Ficha de construcción: PVC espumado',
+      lead:'Lámina rígida de 6 mm. Se sostiene casi sola; el esqueleto la mantiene en escuadra. Admite unión a tope o a inglete, masillas gruesas y aerosoles.',
+      mat:[['Lámina de PVC espumado 6 mm (Trovicel, Sintra o Forex)','7 caras de 15 × 15 (6 + 1 de práctica), o tu parte de una lámina compartida'],['Palito de madera cuadrado 1 × 1 cm','TOTAL'],['Cianoacrilato en gel y acelerador','Para armar caras y esqueleto'],['Pegamento blanco o sin clavos','Palito con palito y relleno'],['Cemento para PVC (opcional)','Aristas más fuertes'],['Lijas 120, 220 y 400','En pliego; se recortan'],['Resanador o pasta texturizadora','Para la textura'],['Primer en aerosol o gesso','Imprimación'],['Pintura vinílica o acrílica y barniz mate','Acabado'],['Lentes, cubrebocas N95 y guantes de nitrilo','Protección']],
+      tools:[['Cúter de hoja ancha y repuestos','En 6 mm la hoja se gasta rápido'],['Regla metálica, tapete de corte y prensas',''],['Escuadra metálica de 90°','Trazar y revisar cada unión'],['Caja de ingletes y segueta','Para los palitos'],['Taco de lijar','Canto recto, no redondeado'],['Guía de 45° o cortador de bisel','Solo si haces inglete'],['Espátulas de 2–4 cm','Para masilla']],
+      build:[['Mide el grosor real','Con regla o vernier. Escribe el número arriba y la guía recalcula S.'],['Traza desde la esquina de fábrica','Primero una tira de 15 cm a todo lo largo, luego otra.'],['Corta las 6 caras','3–5 pasadas suaves por corte, hoja vertical. En la segunda tira recorta el sobrante.'],['Emparejar cantos','Taco de lija hasta que la escuadra cierre sin luz.'],['Corta los palitos','4 postes de S y 8 travesaños de S − 2, a 90° con caja de ingletes.'],['Arma el esqueleto','Dos marcos y luego los 4 travesaños. Revisa que las diagonales midan igual.'],['Forra el esqueleto','Laterales → frente y fondo → base → tapa, con cianoacrilato en gel.'],['Lija las aristas a ras','Con el taco; quita el pegamento que sobresale.'],['Da diente','Lija 150–220 en todas las caras y limpia el polvo con trapo húmedo.'],['Textura','Masilla en 2–3 capas delgadas.'],['Imprima','Primer en aerosol o 2 capas de gesso.'],['Pinta y barniza','Base, veladura, pincel seco y barniz mate.']],
+      finish:['<b>Imprimación:</b> primer en aerosol para plástico (el más parejo) o gesso a pincel.','<b>Masilla:</b> resanador, pasta texturizadora o masilla plástica; aguanta capas gruesas.','<b>Aerosoles y cemento de contacto:</b> sí, el PVC los resiste.'],
+      errors:[['No quemes el PVC','Nada de cautín ni pistola de calor alta: suelta gases tóxicos.'],['No cortes de un tajo','La hoja se desvía y el canto sale chueco.'],['No uses silicón caliente','Se despega del PVC liso.']],
+      buy:[['<a href="https://plasco.mx/producto/pvc/">Plasco</a>','Sucursal Guadalajara. Tel. 33 1196 4864','Trovicel 3, 6 y 10 mm, lámina de 1.22 × 2.44 m (rinde 17 cubos)'],['PLASTMA','Mexicaltzingo 1545-E, Col. Americana. Tel. 33 8526 2298','Trovicel / PVC espumado'],['Productos Newton','Fermín Riestra 1557, Col. Moderna','PVC espumado marca Sintra'],['<a href="https://listado.mercadolibre.com.mx/laminas-de-trovicel-guadalajara">Mercado Libre</a>','En línea','Paquetes de 60 × 120 cm (cada pieza rinde 3 cubos)'],['Talleres de rotulación','Cerca de tu casa o de CUAAD','Retazos baratos y corte a medida']]
+    },
+    est: {
+      title:'Ficha de construcción: estireno',
+      lead:'Lámina de poliestireno blanco calibre 80 (unos 2 mm). Es más barata y ligera que el PVC, pero no se sostiene sola en un cubo de 15 cm: el esqueleto es obligatorio. Solo admite unión a tope; no admite bisel.',
+      mat:[['Lámina de estireno blanco calibre 80 (≈ 2 mm)','7 caras (6 + 1 de práctica). Con calibre 40 o 60 las caras se hunden'],['Palito de madera cuadrado 1 × 1 cm','TOTAL'],['Cemento líquido para modelismo de estireno','Suelda estireno con estireno en las aristas'],['Cianoacrilato en gel y acelerador','Estireno sobre palito'],['Pegamento blanco o sin clavos base agua','Palito con palito y relleno de unicel'],['Bloque de unicel o cartón para retícula (opcional)','Si vas a poner masilla gruesa'],['Lijas 220 y 400','El estireno se raya fácil con grano grueso'],['Gesso acrílico','Imprimación segura a pincel'],['Pasta texturizadora acrílica','Capas delgadas'],['Pintura acrílica y barniz mate','Acabado'],['Lentes y guantes de nitrilo','Protección']],
+      tools:[['Cúter con hoja nueva','Para marcar el surco'],['Regla metálica, tapete de corte y prensas',''],['Escuadra metálica de 90°','Trazar y revisar cada unión'],['Mesa con filo recto','Para quebrar la lámina'],['Caja de ingletes y segueta','Para los palitos'],['Taco de lijar','Quita la rebaba del quiebre'],['Pincel fino o aplicador','Para el cemento líquido']],
+      build:[['Mide el grosor real','Calibre 80 ≈ 2 mm. Escribe el número arriba y la guía recalcula S.'],['Traza desde la esquina de fábrica','Primero una tira de 15 cm, luego otra.'],['Marca y quiebra las 6 caras','3–4 pasadas de cúter, surco al filo de la mesa y dobla firme hacia abajo.'],['Lija la rebaba','Taco con lija 220 en cada canto.'],['Corta los palitos','4 postes de S, 8 travesaños de S − 2 y, si llevas masilla, 6 costillas de S − 2.'],['Arma el esqueleto','Dos marcos y luego los 4 travesaños. Revisa que las diagonales midan igual.'],['Relleno (opcional)','Costillas o bloque de unicel antes de cerrar, pegados con pegamento blanco.'],['Forra el esqueleto','Estireno sobre palito con cianoacrilato en gel; aristas con cemento para estireno.'],['Lija las aristas a ras','Con el taco y lija 220; sin presionar para no rayar la cara.'],['Da diente e imprima','Lija 400 suave y 2 capas de gesso a pincel.'],['Textura','Pasta texturizadora en capas delgadas; deja secar entre capas.'],['Pinta y barniza','Base, veladura, pincel seco y barniz mate a pincel.']],
+      finish:['<b>Imprimación:</b> gesso acrílico a pincel. Prueba cualquier aerosol en un retazo: algunos arrugan el estireno.','<b>Masilla:</b> capas delgadas; si va gruesa, pon costillas o relleno para que la cara no se hunda.','<b>Barniz:</b> a pincel o aerosol probado antes en retazo.'],
+      errors:[['Cemento de contacto o para PVC','Sus solventes arrugan y derriten el estireno.'],['Calibre delgado','Con calibre 40 o 60 las caras se hunden con la masilla.'],['Bisel a 45°','El estireno de 2 mm no lo admite: solo unión a tope.'],['Solventes con unicel','Si rellenas con unicel, pégalo con pegamento blanco o silicón frío.']],
+      buy:[['<a href="https://www.plasticosalgarin.com/product-page/lamina-de-estireno-calibre-80-2mm-de-medida-1-20x1-52">Plásticos Algarín</a>','En línea','Calibre 80 (2 mm), 1.20 × 1.52 m, ~$543. Rinde 63 caras: 10 cubos'],['<a href="https://listado.mercadolibre.com.mx/lamina-de-estireno-calibre-80">Mercado Libre</a>','En línea','Calibre 80 en varios tamaños'],['<a href="https://plastimundooficial.com/estireno/">PlastiMundo</a>','En línea (CDMX). Tel. 55 5271 9233','Calibres 15 a 100; 1.52 × 1.20 m y 1.20 × 0.90 m (80 y 100)'],['<a href="https://lumen.com.mx/laminas-estireno-01006008">Papelería Lumen</a>','Tiendas y en línea','Solo hasta calibre 60 (76 × 120 cm, ~$286): sirve para relieves, no para las caras'],['Tiendas de modelismo','Guadalajara','Cemento líquido para estireno y perfiles en L']]
+    }
+  };
+  function renderFicha(){
+    var F = FICHA[state.mat], s = S(), t = state.t[state.mat];
+    $('f-title').textContent = F.title; $('f-lead').textContent = F.lead;
+    var tiles = state.mat === 'pvc' ? [
+      ['Lámina','PVC espumado','Trovicel, Sintra o Forex'],['Grosor',f(t)+' mm','Mídelo antes de trazar'],['Esqueleto S',f(s)+' cm',sForm()],['Unión', state.union==='ing'?'Inglete 45°':(state.union==='mol'?'Caras 15 × 15':'A tope'), state.union==='mol'?'Molinete: mide '+f(15+t/10)+' cm por fuera':'También admite inglete'],['Corte','3–5 pasadas','Hoja vertical, sin forzar'],['Palito total',f(woodLen()/100)+' m','1 × 1 cm'],['Rendimiento','3 cubos','por pieza de 60 × 120 cm']
+    ] : [
+      ['Lámina','Estireno blanco','Poliestireno de alto impacto'],['Calibre','80 ≈ '+f(t)+' mm','40 ≈ 1 · 60 ≈ 1.5 · 100 ≈ 2.5 mm'],['Esqueleto S',f(s)+' cm',sForm()],['Unión', state.union==='mol'?'Caras 15 × 15':'A tope', state.union==='mol'?'Molinete: mide '+f(15+t/10)+' cm por fuera':'No admite bisel'],['Corte','Marcar y quebrar','3–4 pasadas + doblar'],['Palito total',f(woodLen()/100)+' m', state.ribs?'con 6 costillas':'sin costillas'],['Rendimiento','10 cubos','por lámina de 1.20 × 1.52 m']
+    ];
+    var TI = ['sheet','caliper','cube','union', state.mat==='pvc'?'cutter':'snap','stick','boxes'];
+    $('f-tiles').innerHTML = tiles.map(function(x,i){ return '<div class="tile">'+ico(TI[i])+'<small>'+x[0]+'</small><b>'+x[1]+'</b><span>'+x[2]+'</span></div>'; }).join('');
+    function lst(arr, pre){ return arr.map(function(x,i){ var d = x[1]==='TOTAL' ? f(woodLen()/100)+' m en total ('+(state.ribs?'con costillas':'sin costillas')+')' : x[1]; var id = pre+state.mat+i; return '<li><label for="'+id+'"><input id="'+id+'" type="checkbox">'+ico(iconFor(x[0]))+'<span>'+x[0]+(d?'<em>'+d+'</em>':'')+'</span></label></li>'; }).join(''); }
+    $('f-mat').innerHTML = lst(F.mat,'fm-'); $('f-tools').innerHTML = lst(F.tools,'ft-');
+    $('f-build').innerHTML = F.build.map(function(x){ if (state.union==='mol') x = [x[0], x[1].replace(' En la segunda tira recorta el sobrante.','').replace(', luego otra.',' y otra: salen las 6 caras de 15 × 15 sin recortar.')]; return '<li>'+ico(iconFor(x[0]+' '+(/quiebra/.test(x[0])?'quiebra':'')))+'<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div></li>'; }).join('');
+    renderAnat();
+    $('f-finish').innerHTML = F.finish.map(function(x){ return '<p>'+x+'</p>'; }).join('');
+    $('f-errors').innerHTML = F.errors.map(function(x){ return '<div class="warn"><b>'+x[0]+':</b> '+x[1]+'</div>'; }).join('');
+    $('c-pvc').setAttribute('aria-pressed', String(state.mat==='pvc')); $('c-est').setAttribute('aria-pressed', String(state.mat==='est'));
+  }
+
+
+  /* ---------- Rescate 15 x 15 ---------- */
+  function sq(cutR, cutB, t){
+    var W = 150, k = 10, c = cutR ? 2*t*k : 0, d = cutB ? 2*t*k : 0, x0 = 10, y0 = 10, o = [];
+    o.push('<rect x="'+x0+'" y="'+y0+'" width="'+W+'" height="'+W+'" fill="'+(state.mat==='pvc'?'#DDE3E1':'#CFD9EA')+'" stroke="#8a7f70"/>');
+    if (c) o.push('<rect x="'+(x0+W-c)+'" y="'+y0+'" width="'+c+'" height="'+W+'" fill="#FF8A7A" fill-opacity=".55"/><line x1="'+(x0+W-c)+'" y1="'+(y0-6)+'" x2="'+(x0+W-c)+'" y2="'+(y0+W+6)+'" stroke="#FF8A7A" stroke-width="2" stroke-dasharray="5 4"/>');
+    if (d) o.push('<rect x="'+x0+'" y="'+(y0+W-d)+'" width="'+W+'" height="'+d+'" fill="#FF8A7A" fill-opacity=".55"/><line x1="'+(x0-6)+'" y1="'+(y0+W-d)+'" x2="'+(x0+W+6)+'" y2="'+(y0+W-d)+'" stroke="#FF8A7A" stroke-width="2" stroke-dasharray="5 4"/>');
+    if (!c && !d) o.push('<text x="'+(x0+W/2)+'" y="'+(y0+W/2+5)+'" text-anchor="middle" font-family="Work Sans, Arial" font-size="15" fill="#0B1214">sin cambios</text>');
+    return '<svg viewBox="0 0 170 170" role="img" aria-label="Pieza con zona de recorte">'+o.join('')+'</svg>';
+  }
+  function renderFix(){
+    var t = tcm(), s = S(), cut = f(2*t), tmm = f(state.t[state.mat]);
+    $('fix-lead').textContent = 'Con '+matName().toLowerCase()+' de '+tmm+' mm, si pegas las 6 caras de 15 × 15 a tope el cubo no cierra: cuatro caras chocan con los cantos. Tienes dos salidas.';
+    $('fix-pieces').innerHTML =
+      '<div class="fp">'+sq(false,false,t)+'<b>Tapa y base · 2</b><span>Se quedan de 15 × 15</span></div>'+
+      '<div class="fp">'+sq(false,true,t)+'<b>Frente y fondo · 2</b><span>Quita '+cut+' cm de un lado: quedan de 15 × '+f(s)+'</span></div>'+
+      '<div class="fp">'+sq(true,true,t)+'<b>Laterales · 2</b><span>Quita '+cut+' cm de dos lados que se tocan: quedan de '+f(s)+' × '+f(s)+'</span></div>';
+    var cutHow = state.mat === 'pvc'
+      ? 'Corta la tira de '+cut+' cm en 3–5 pasadas con la regla fija con prensas.'
+      : 'Marca la tira de '+cut+' cm con 3–4 pasadas. Como es angosta, quiébrala con pinzas planas a lo largo del surco, poco a poco.';
+    $('fix-steps').innerHTML = [
+      'Arma primero el esqueleto de palitos con S = '+f(s)+' cm (15 − 2 × grosor). Te sirve de plantilla.',
+      'Elige en cada cara los cantos más rectos y márcalos como “se quedan”. Recorta siempre el canto contrario.',
+      'Traza la línea de corte con escuadra metálica, midiendo desde el canto que se queda. Mejor aún: presenta la cara sobre el esqueleto y marca a ras.',
+      cutHow,
+      'Empareja el canto con el taco de lija hasta que la escuadra cierre sin luz.',
+      'Presenta las 4 caras recortadas sobre el esqueleto antes de pegar: laterales → frente y fondo → base → tapa.'
+    ].map(function(x){ return '<li>'+x+'</li>'; }).join('');
+    var fb = $('fix-b');
+    if (state.mat === 'pvc'){
+      fb.className = 'fo';
+      fb.innerHTML = '<span class="k">Opción B · Biselar a 45° (solo PVC)</span><p style="font-size:.93rem">No recortas nada: biselas los 4 cantos de las 6 caras a 45° y el cubo mide exactamente 15 cm. Es más limpio pero más difícil; practica en un retazo.</p><div><button class="btn" id="fix-ing" type="button">Ver armado con inglete</button></div>';
+      $('fix-ing').addEventListener('click', function(){ state.union = 'ing'; all(); document.getElementById('armado').scrollIntoView({behavior:'smooth'}); });
+    } else {
+      fb.className = 'fo off';
+      fb.innerHTML = '<span class="k">Opción B · Biselar a 45°</span><p style="font-size:.93rem">No aplica: el estireno de 2 mm no admite bisel. En estireno la única salida es recortar.</p>';
+    }
+  }
+
+
+  /* ---------- Texturas ---------- */
+  function rng(seed){ var x = seed; return function(){ x = (x*1103515245 + 12345) % 2147483648; return x/2147483648; }; }
+  var SW = {
+    grain:function(bg,fg,seed,n,rmax){ var r=rng(seed),o='<rect width="300" height="96" fill="'+bg+'"/>'; for(var i=0;i<n;i++){ o+='<circle cx="'+(r()*300).toFixed(1)+'" cy="'+(r()*96).toFixed(1)+'" r="'+(0.6+r()*rmax).toFixed(1)+'" fill="'+fg[i%fg.length]+'"/>'; } return o; },
+    veta:function(){ var o='<rect width="300" height="96" fill="#8a5a33"/>',r=rng(3); for(var i=0;i<14;i++){ var y=4+i*7; o+='<path d="M0 '+y+' C80 '+(y+r()*6-3)+' 160 '+(y+r()*8-4)+' 300 '+(y+r()*6-3)+'" stroke="#5e3a1d" stroke-width="'+(0.8+r()*1.6).toFixed(1)+'" fill="none" opacity=".8"/>'; } return o; },
+    planks:function(){ var o='<rect width="300" height="96" fill="#a8763f"/>'; for(var i=0;i<6;i++){ o+='<rect x="'+(i*50)+'" y="0" width="48" height="96" fill="'+(['#a8763f','#9b6b37','#b3814a'][i%3])+'"/><line x1="'+(i*50+49)+'" y1="0" x2="'+(i*50+49)+'" y2="96" stroke="#4a2e16" stroke-width="2"/>'; } return o; },
+    bricks:function(bg,fg){ var o='<rect width="300" height="96" fill="'+bg+'"/>'; for(var r=0;r<6;r++){ for(var c=-1;c<7;c++){ var x=c*50+(r%2?25:0); o+='<rect x="'+(x+2)+'" y="'+(r*16+2)+'" width="46" height="12" rx="1" fill="'+fg[(r+c+7)%fg.length]+'"/>'; } } return o; },
+    wave:function(){ var o='<rect width="300" height="96" fill="#b89668"/>'; for(var x=0;x<300;x+=10){ o+='<rect x="'+x+'" y="0" width="5" height="96" fill="#8f7048"/>'; } return o; },
+    mesh:function(){ var o='<rect width="300" height="96" fill="#2a241f"/>'; for(var x=0;x<300;x+=8) o+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="96" stroke="#9a9a9a" stroke-width="1"/>'; for(var y=0;y<96;y+=8) o+='<line x1="0" y1="'+y+'" x2="300" y2="'+y+'" stroke="#9a9a9a" stroke-width="1"/>'; return o; },
+    rock:function(){ var r=rng(11),o='<rect width="300" height="96" fill="#6f6a63"/>'; for(var i=0;i<22;i++){ var x=r()*300,y=r()*96,w=20+r()*50,h=12+r()*26; o+='<ellipse cx="'+x.toFixed(0)+'" cy="'+y.toFixed(0)+'" rx="'+(w/2).toFixed(0)+'" ry="'+(h/2).toFixed(0)+'" fill="'+(['#8b857c','#5d5851','#9c968d','#77716a'][i%4])+'" stroke="#3f3b36"/>'; } return o; },
+    crack:function(bg,line){ var r=rng(7),o='<rect width="300" height="96" fill="'+bg+'"/>'; for(var i=0;i<9;i++){ var x=r()*300,y=r()*96,d='M'+x.toFixed(0)+' '+y.toFixed(0); for(var j=0;j<5;j++){ x+=r()*40-10; y+=r()*30-15; d+=' L'+x.toFixed(0)+' '+y.toFixed(0); } o+='<path d="'+d+'" stroke="'+line+'" stroke-width="1.3" fill="none"/>'; } return o; },
+    fabric:function(){ var o='<rect width="300" height="96" fill="#c9b99a"/>'; for(var x=0;x<300;x+=4) o+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="96" stroke="#a8977a" stroke-width="1.6"/>'; for(var y=0;y<96;y+=4) o+='<line x1="0" y1="'+y+'" x2="300" y2="'+y+'" stroke="#b5a486" stroke-width="1.2" opacity=".7"/>'; return o; },
+    drip:function(){ var r=rng(5),o='<rect width="300" height="96" fill="#3b332c"/><rect width="300" height="14" fill="#e9e4da" opacity=".85"/>'; for(var i=0;i<14;i++){ var x=10+i*21+r()*6,h=14+r()*60; o+='<path d="M'+(x-5)+' 12 L'+(x-3)+' '+h+' Q'+x+' '+(h+10)+' '+(x+3)+' '+h+' L'+(x+5)+' 12Z" fill="#e9e4da" opacity=".85"/>'; } return o; },
+    water:function(){ var o='<rect width="300" height="96" fill="#1f4a63"/>'; for(var y=10;y<96;y+=14) o+='<path d="M0 '+y+' Q37 '+(y-6)+' 75 '+y+' T150 '+y+' T225 '+y+' T300 '+y+'" stroke="#8fd0f0" stroke-width="2" fill="none" opacity=".7"/>'; return o+'<rect width="300" height="96" fill="url(#gl)" opacity=".35"/>'; },
+    leds:function(){ var o='<rect width="300" height="96" fill="#0B1214"/>'; for(var x=20;x<300;x+=40) o+='<circle cx="'+x+'" cy="48" r="16" fill="#F4D9A6" opacity=".18"/><circle cx="'+x+'" cy="48" r="5" fill="#FFE7B3"/>'; return o; },
+    glass:function(){ return '<rect width="300" height="96" fill="#2a241f"/><rect x="20" y="10" width="120" height="76" fill="#9fc7e0" opacity=".35" stroke="#cfe6f3"/><rect x="160" y="10" width="120" height="76" fill="#9fc7e0" opacity=".35" stroke="#cfe6f3"/><path d="M30 20 L70 60 M60 18 L110 70 M175 20 L205 50" stroke="#fff" opacity=".6" stroke-width="2"/>'; },
+    wire:function(){ return '<rect width="300" height="96" fill="#2a241f"/><path d="M10 80 C60 10 90 90 140 30 S220 80 290 20" stroke="#b9b9b9" stroke-width="3" fill="none"/><path d="M10 60 C70 90 120 10 180 60 S260 30 290 70" stroke="#c9a06a" stroke-width="3" fill="none"/>'; },
+    moldura:function(){ var o='<rect width="300" height="96" fill="#d8cfbf"/>'; o+='<rect x="0" y="10" width="300" height="10" fill="#efe8dc"/><rect x="0" y="20" width="300" height="4" fill="#a99d8b"/><rect x="0" y="70" width="300" height="4" fill="#a99d8b"/><rect x="0" y="74" width="300" height="12" fill="#efe8dc"/>'; for(var x=15;x<300;x+=30) o+='<circle cx="'+x+'" cy="47" r="9" fill="#efe8dc" stroke="#a99d8b"/>'; return o; },
+    rust:function(){ return SW.grain('#6b3a22',['#b5652b','#8a4a25','#d98a3c','#3b2014'],21,420,2.4); },
+    oldpaint:function(){ var r=rng(9),o='<rect width="300" height="96" fill="#8a5a33"/>'; for(var i=0;i<30;i++){ o+='<ellipse cx="'+(r()*300).toFixed(0)+'" cy="'+(r()*96).toFixed(0)+'" rx="'+(8+r()*30).toFixed(0)+'" ry="'+(5+r()*16).toFixed(0)+'" fill="#7fa6a0"/>'; } return o; },
+    sponge:function(){ return SW.grain('#5d5851',['#8b857c','#9c968d','#77716a','#b1aa9f'],31,500,3.2); },
+    splat:function(){ return SW.grain('#8f8a82',['#2e2a26','#e8e2d6'],41,260,1.6); },
+    moss:function(){ return SW.grain('#3d4a2a',['#6f8a3a','#8fae4a','#556b2f','#a3c05b'],51,700,2.2); },
+    snow:function(){ return SW.grain('#9aa7b3',['#ffffff','#e9f1f8'],61,650,2.2); }
+  };
+  var T = [
+    {c:'tex', n:'Arena fina o sílice', fx:['Piedra','Concreto','Playa'], how:'Mézclala con pegamento blanco o resanador, o espolvoréala sobre pintura fresca.', sw:function(){return SW.grain('#b9a27c',['#d8c49c','#8f7a58','#c7b28a'],1,900,1.2);}},
+    {c:'tex', n:'Café molido o yerba seca', fx:['Tierra','Suelo','Corteza'], how:'Espolvorea sobre pegamento blanco y sella con pegamento diluido. Usa café ya usado y seco.', sw:function(){return SW.grain('#3b2717',['#5e3d22','#2a1a0e','#7a5231'],2,900,1.4);}},
+    {c:'tex', n:'Aserrín', fx:['Tierra','Pasto teñido','Madera áspera'], how:'Tíñelo con pintura diluida, déjalo secar y pégalo como la arena.', sw:function(){return SW.grain('#c7a574',['#e0c08e','#a8834f'],3,500,2.6);}},
+    {c:'tex', n:'Resanador de pared', fx:['Estuco','Muro','Piedra lisa'], how:'Con espátula en capas delgadas. Marca la textura con esponja o brocha mientras está fresco.', sw:function(){return SW.crack('#d9d2c4','#b7ad9b');}},
+    {c:'tex', n:'Pasta texturizadora o gel de modelar', fx:['Estuco','Vetas','Relieve'], how:'Se pinta directo al secar y queda flexible. Peina las vetas con un peine o tenedor.', sw:SW.veta},
+    {c:'tex', n:'Papel higiénico con pegamento blanco', fx:['Muro viejo','Roca','Tela arrugada'], how:'Humedece el papel en pegamento diluido, arrúgalo sobre la cara y deja secar; luego pinta.', sw:function(){return SW.crack('#e7e1d4','#b5ab98');}},
+    {c:'tex', n:'Papel aluminio arrugado', fx:['Roca','Piedra','Metal golpeado'], how:'Úsalo como sello: presiónalo sobre masilla fresca y despégalo.', sw:SW.rock},
+    {c:'tex', n:'Esponja rallada o flock teñido', fx:['Musgo','Pasto','Arbustos'], how:'Ralla esponja de cocina, tíñela de verde y espolvorea sobre pegamento blanco.', sw:SW.moss},
+    {c:'tex', n:'Tela, gasa o manta', fx:['Cortinas','Tapiz','Sacos'], how:'Empápala en pegamento blanco diluido y acomoda los pliegues; al secar queda rígida.', sw:SW.fabric},
+    {c:'for', n:'Palitos de madera o abatelenguas', fx:['Duela','Tablones','Cercas'], how:'Pégalos con pegamento blanco; marca vetas con punzón y aplica veladura café.', sw:SW.planks},
+    {c:'for', n:'Cartón corrugado sin una cara', fx:['Techo de lámina','Persianas','Muro ondulado'], how:'Despega una cara del cartón para dejar las ondas al aire; sella con pegamento antes de pintar.', sw:SW.wave},
+    {c:'for', n:'Cartón gris o cascarón en cuadritos', fx:['Ladrillo','Adoquín','Azulejo'], how:'Corta rectángulos de 1 × 0.5 cm y pégalos en hileras alternadas.', sw:function(){return SW.bricks('#6b5a4a',['#a0522d','#8b4513','#b5653b','#9a4a28']);}},
+    {c:'for', n:'Foami (EVA) grabado', fx:['Ladrillo','Piedra labrada','Azulejo'], how:'Graba las juntas con pluma sin tinta y pégalo con cianoacrilato. Sella antes de pintar.', sw:function(){return SW.bricks('#4a4038',['#8b857c','#9c968d','#77716a']);}},
+    {c:'for', n:'Unicel tallado', fx:['Rocas','Columnas','Sillares'], how:'Tállalo con cúter o lija y rómpelo para textura de roca. Séllalo con látex o gesso.', care:'Pégalo con pegamento blanco: cemento de contacto, aerosoles y cemento para estireno lo derriten.', sw:SW.rock},
+    {c:'for', n:'Foam clay o plastilina epóxica', fx:['Molduras','Ornamentos','Esculturas'], how:'Modela piezas pequeñas y pégalas sobre la cara; la epóxica queda dura y se lija.', sw:SW.moldura},
+    {c:'for', n:'Popotes, varitas y palillos', fx:['Tuberías','Columnas','Barandales'], how:'Córtalos a medida y pégalos con cianoacrilato; píntalos metálicos para tubería.', sw:function(){ var o='<rect width="300" height="96" fill="#2a241f"/>'; for(var x=20;x<300;x+=28) o+='<rect x="'+x+'" y="6" width="12" height="84" rx="6" fill="#9c968d"/><rect x="'+(x+2)+'" y="6" width="3" height="84" fill="#d8cfbf" opacity=".6"/>'; return o; }},
+    {c:'for', n:'Malla de mosquitero o tul', fx:['Rejas','Ventanas','Ventilas'], how:'Recorta y pega por detrás de un hueco; pinta negro o metálico con pincel seco.', sw:SW.mesh},
+    {c:'for', n:'Alambre y limpiapipas', fx:['Ramas','Barandales','Lámparas'], how:'Dóblalo con pinzas y fíjalo con epóxico o cianoacrilato en un orificio.', sw:SW.wire},
+    {c:'efe', n:'Óxido con pigmentos', fx:['Metal viejo','Herrajes','Escurrimientos'], how:'Base café oscuro y pigmentos ocre y rojo óxido con pincel seco, escurriendo hacia abajo.', sw:SW.rust},
+    {c:'efe', n:'Pintura descarapelada', fx:['Madera vieja','Puerta','Ventana'], how:'Pinta café, frota vela o vaselina en zonas, pinta encima el color final y lija: se desprende donde hubo cera.', sw:SW.oldpaint},
+    {c:'efe', n:'Craquelado', fx:['Cerámica','Pintura antigua','Tierra seca'], how:'Pasta de craquelado entre dos capas de pintura, o pegamento blanco grueso bajo pintura con secadora.', sw:function(){return SW.crack('#c9a882','#4a3526');}},
+    {c:'efe', n:'Esponjeado', fx:['Piedra','Musgo','Muro manchado'], how:'Esponja de mar o de cocina con 2–3 tonos, a toques, del más oscuro al más claro.', sw:SW.sponge},
+    {c:'efe', n:'Salpicado', fx:['Concreto','Granito','Suciedad'], how:'Cepillo de dientes con pintura rebajada; pasa el dedo por las cerdas a 20 cm de la cara.', sw:SW.splat},
+    {c:'efe', n:'Silicón caliente', fx:['Escurrimientos','Velas','Hielo'], how:'Deja caer gotas y líneas; píntalo o déjalo transparente.', care:'En estireno usa pistola de baja temperatura: el calor puede deformar la lámina.', sw:SW.drip},
+    {c:'luz', n:'Acetato o micas', fx:['Vidrio','Ventanas','Vitrales'], how:'Pégalo por detrás del hueco con cinta doble cara; pinta vitrales con marcador permanente.', sw:SW.glass},
+    {c:'luz', n:'Barniz brillante o resina', fx:['Agua','Charcos','Cerámica'], how:'Capas delgadas sobre pintura azul o café oscuro; con palillo arrastra olas antes de que seque.', care:'Usa resina epóxica o UV; la resina poliéster disuelve el estireno. Prueba en un retazo.', sw:SW.water},
+    {c:'luz', n:'Papel espejo o espejo acrílico', fx:['Reflejos','Agua','Ventanales'], how:'Pégalo con cinta doble cara; úsalo en el piso para duplicar la escenografía.', sw:function(){ return '<defs><linearGradient id="mir" x1="0" x2="1"><stop offset="0" stop-color="#e6e9ec"/><stop offset=".5" stop-color="#9aa3ab"/><stop offset="1" stop-color="#f4f6f8"/></linearGradient></defs><rect width="300" height="96" fill="url(#mir)"/><path d="M40 0 L90 96 M70 0 L120 96" stroke="#fff" stroke-width="6" opacity=".5"/>'; }},
+    {c:'luz', n:'Luces LED de pila', fx:['Cenital','Ventanas encendidas','Velas'], how:'Tira LED o velas LED dentro del cubo o detrás de acetato; deja una tapa removible para cambiar pilas.', sw:SW.leds}
+  ];
+  var tFilter = 'all';
+  var CAT = {tex:'Textura', for:'Forma y relieve', efe:'Efecto', luz:'Luz y transparencia'};
+  function renderTex(){
+    var list = T.filter(function(x){ return tFilter==='all' || x.c===tFilter; });
+    $('tcards').innerHTML = list.map(function(x){
+      return '<article class="tcard"><svg viewBox="0 0 300 96" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Muestra: '+x.n+'"><defs><linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>'+x.sw()+'</svg>'+
+        '<div class="bd"><span class="type">'+CAT[x.c]+'</span><h3>'+x.n+'</h3><div class="fx">'+x.fx.map(function(e){return '<span>'+e+'</span>';}).join('')+'</div><p class="how">'+x.how+'</p>'+(x.care?'<p class="care">'+x.care+'</p>':'')+'</div></article>';
+    }).join('');
+    $('tcount').textContent = list.length + ' elementos';
+    document.querySelectorAll('#texturas [data-t]').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-t')===tFilter)); });
+  }
+  document.querySelectorAll('#texturas [data-t]').forEach(function(b){ b.addEventListener('click', function(){ tFilter = b.getAttribute('data-t'); renderTex(); }); });
+
+
+  /* ---------- Problemas ---------- */
+  var PL = 'fill="#DDE3E1" stroke="#0B1214" stroke-width="1.2" stroke-linejoin="round"';
+  var PS = 'fill="#AEB7B5" stroke="#0B1214" stroke-width="1.2" stroke-linejoin="round"';
+  var PT = 'fill="#EEF2F1" stroke="#0B1214" stroke-width="1.2" stroke-linejoin="round"';
+  var RED = 'stroke="#FF8A7A" stroke-width="2.5" fill="none" stroke-linecap="round"';
+  var SVGP = {
+    despegue:'<polygon points="40,50 75,32 110,50 75,68" '+PT+'/><polygon points="40,50 75,68 75,108 40,90" '+PS+'/><polygon points="88,74 124,56 124,96 88,114" '+PL+' transform="rotate(12 88 114)"/><path d="M78 70 L84 76 M78 84 L86 88 M78 98 L85 102" '+RED+'/>',
+    pandeo:'<polygon points="20,30 130,30 130,34 20,34" '+PT+'/><path d="M20 34 Q75 70 130 34 L130 38 Q75 76 20 38 Z" '+PL+'/><line x1="20" y1="34" x2="130" y2="34" stroke="#7FC8FF" stroke-dasharray="4 3" stroke-width="1.5"/><path d="M75 58 v14 M69 66 l6 6 6-6" '+RED+'/>',
+    escuadra:'<rect x="35" y="25" width="80" height="80" fill="none" stroke="#7FC8FF" stroke-dasharray="5 4"/><polygon points="35,105 115,105 128,25 48,25" '+PL+'/><path d="M35 105 L128 25" stroke="#FF8A7A" stroke-width="2"/><path d="M115 105 L48 25" stroke="#F2C14E" stroke-width="2"/>',
+    huecos:'<polygon points="35,40 75,20 115,40 75,60" '+PT+'/><polygon points="35,44 73,63 73,108 35,89" '+PS+'/><polygon points="79,63 115,44 115,89 79,108" '+PL+'/><path d="M76 62 V108" stroke="#0B1214" stroke-width="5"/><path d="M76 66 V104" stroke="#FF8A7A" stroke-width="1.5" stroke-dasharray="3 3"/>',
+    grieta:'<rect x="20" y="25" width="110" height="80" '+PL+'/><path d="M40 30 L55 55 L50 70 L65 95 M55 55 L80 60 L95 45 M80 60 L90 85 L110 95" '+RED+'/><path d="M100 30 l12 10 -6 8" '+RED+'/>',
+    pelado:'<rect x="20" y="25" width="110" height="80" fill="#5FD1C1" stroke="#0B1214" stroke-width="1.2"/><path d="M60 55 q20 -10 35 5 q5 20 -10 28 q-25 5 -30 -12 z" fill="#DDE3E1" stroke="#0B1214"/><path d="M95 60 q14 -18 22 -6 q-6 10 -22 6z" fill="#5FD1C1" stroke="#0B1214"/>',
+    arrugado:'<path d="M20 40 Q35 30 50 40 T80 40 T110 40 T130 40 V95 Q115 105 100 95 T70 95 T40 95 T20 95Z" fill="#CFD9EA" stroke="#0B1214" stroke-width="1.2"/><path d="M35 55 q10 8 20 0 q10 -8 20 0 M70 72 q10 8 20 0 q10 -8 20 0" '+RED+'/>',
+    manchas:'<rect x="20" y="25" width="110" height="80" '+PL+'/><path d="M75 25 V105" stroke="#0B1214" stroke-width="1.2"/><ellipse cx="70" cy="50" rx="18" ry="9" fill="#ffffff" opacity=".85"/><ellipse cx="82" cy="80" rx="22" ry="10" fill="#ffffff" opacity=".7"/><ellipse cx="66" cy="96" rx="10" ry="5" fill="#ffffff" opacity=".8"/>',
+    sobresale:'<rect x="25" y="60" width="100" height="10" '+PT+'/><rect x="25" y="70" width="10" height="45" '+PS+'/><rect x="115" y="70" width="10" height="45" '+PS+'/><rect x="118" y="52" width="10" height="18" fill="#FF8A7A" fill-opacity=".45"/><path d="M130 52 v18 M136 52 v18" stroke="#FF8A7A" stroke-width="1.5"/><path d="M125 45 h-18" '+RED+'/>',
+    esquina:'<polygon points="40,50 75,32 110,50 75,68" '+PT+'/><polygon points="40,50 75,68 75,108 40,90" '+PS+'/><polygon points="75,68 110,50 110,90 75,108" '+PL+'/><polygon points="68,64 75,68 82,64 80,76 72,78" fill="#0F1517" stroke="#FF8A7A" stroke-width="1.5"/>'
+  };
+  var PROB = [
+    {id:'despegue', t:'Se despegó una cara', who:'PVC y estireno', why:'Poco pegamento, polvo en el canto, superficie lisa sin lijar o un golpe que rompió el cianoacrilato, que es quebradizo. El silicón caliente tampoco agarra en el PVC.',
+      fix:['Despega la cara por completo con una espátula, sin forzar la lámina.','Raspa el pegamento viejo y lija con grano 120 el canto, la cara y el palito.','Limpia el polvo con un trapo húmedo y deja secar.','Si el palito también se aflojó, repégalo primero al esqueleto.','Vuelve a pegar: en PVC con cianoacrilato en gel o cemento para PVC; en estireno, cianoacrilato sobre el palito y cemento para estireno en las aristas.','Sujeta con cinta masking o prensas hasta que seque.'],
+      prev:'Pega cada cara sobre el esqueleto, no solo canto con canto, y lija antes de pegar.'},
+    {id:'pandeo', t:'La cara se pandea o se hunde', who:'Sobre todo estireno', why:'Lámina delgada sin apoyo al centro, masilla gruesa que jala la lámina al secar, o calor: sol, auto cerrado, secadora o pistola de calor.',
+      fix:['Si la tapa aún está suelta, pega por dentro una costilla central (palito de S − 2) que empuje la cara a su lugar.','Si ya está cerrado, pon el cubo con esa cara sobre una superficie plana y peso encima mientras la masilla termina de secar.','Rellena la curva que quede con resanador en capas delgadas y lija a plano con un taco largo.','Si se hundió mucho, mete relleno de unicel o cartón en retícula antes de cerrar.'],
+      prev:'Calibre 80, costillas si vas a usar masilla, capas delgadas y nada de calor.'},
+    {id:'escuadra', t:'El cubo quedó chueco', who:'PVC y estireno', why:'El esqueleto se armó fuera de escuadra, los palitos no miden igual o las caras se cortaron fuera de 90°.',
+      fix:['Mide las dos diagonales de cada cara: si no son iguales, esa cara está chueca.','Si el pegamento aún está fresco, empuja la esquina de la diagonal larga hasta que midan igual.','Si ya secó, despega el marco chueco y corrige el largo de los palitos.','Si el problema está en una cara, lija su canto con el taco hasta que la escuadra cierre sin luz.'],
+      prev:'Arma el esqueleto sobre la escuadra metálica y corta todos los palitos iguales usando un tope.'},
+    {id:'huecos', t:'Se ven huecos en las aristas', who:'PVC y estireno', why:'Cortes que no quedaron rectos, caras 1–2 mm más cortas o un orden de forrado equivocado.',
+      fix:['Rellena el hueco con resanador o masilla plástica y deja secar.','Lija a ras con el taco, sin redondear la arista.','Si el hueco es de más de 2 mm, pega una tira de retazo del mismo material y lija a ras.'],
+      prev:'Presenta todas las caras sobre el esqueleto antes de pegar y sigue el orden: laterales, frente y fondo, base, tapa.'},
+    {id:'grieta', t:'La masilla se agrietó o se cae', who:'PVC y estireno', why:'Capa demasiado gruesa, lámina lisa sin lijar, cara que se flexiona o secado muy rápido.',
+      fix:['Retira lo que esté suelto con la espátula.','Lija la zona con grano 150–220 para dar diente.','Aplica de nuevo en 2–3 capas delgadas, dejando secar entre cada una.','Sella con pegamento blanco diluido o gesso antes de pintar.'],
+      prev:'Nunca apliques la masilla directo sobre la lámina lisa. Si la grieta está firme y buscas un efecto viejo, déjala y resáltala con veladura.'},
+    {id:'pelado', t:'La pintura se pela', who:'PVC y estireno', why:'Se pintó sin imprimar, había polvo o grasa de las manos, o el aerosol no es para plástico.',
+      fix:['Lija la zona que se pela con grano 220–400 hasta que no quede borde.','Limpia con trapo húmedo y deja secar.','Imprima: primer para plástico en PVC, gesso a pincel en estireno.','Repinta en capas delgadas y termina con barniz mate.'],
+      prev:'Lija, limpia e imprima siempre antes de pintar. Manipula el cubo con guantes o manos limpias.'},
+    {id:'arrugado', t:'El estireno se arrugó o se derritió', who:'Solo estireno', est:true, why:'Cemento de contacto, cemento para PVC, resina poliéster o un aerosol con solvente fuerte. También el calor.',
+      fix:['El daño no se revierte. Si es pequeño, lija lo que puedas y cúbrelo con resanador.','Si abarca buena parte de la cara, despégala y sustitúyela por tu cara extra.','Antes de volver a usar ese producto, pruébalo en un retazo.'],
+      prev:'Estireno solo con cemento para estireno, cianoacrilato, sin clavos base agua o pegamento blanco; imprime con gesso a pincel.'},
+    {id:'manchas', t:'Manchas blancas junto al pegamento', who:'PVC y estireno', why:'Es el vapor del cianoacrilato, que empaña la superficie alrededor de la unión. Pasa más con mucho pegamento o sin ventilación.',
+      fix:['Lija suave con grano 400 hasta quitar el velo.','Cúbrelo con la imprimación; al pintar desaparece.'],
+      prev:'Usa una línea delgada de pegamento, acelerador y trabaja con ventilación.'},
+    {id:'sobresale', t:'Una cara sobresale del cubo', who:'PVC y estireno', why:'El grosor real de la lámina no era el que se usó para calcular, o una cara salió más grande.',
+      fix:['Si sobresale menos de 2 mm, lija con el taco hasta dejarla a ras.','Si es más, marca la línea y recorta con cúter en varias pasadas.','Revisa con la escuadra que la arista quede recta.'],
+      prev:'Mide el grosor real con vernier y escríbelo arriba en la guía antes de trazar.'},
+    {id:'esquina', t:'Se despostilló una esquina', who:'PVC y estireno', why:'Un golpe o una caída. Las esquinas son lo primero que se daña al transportar el cubo.',
+      fix:['Lija la zona rota para quitar lo suelto.','Reconstruye la esquina con masilla plástica o resanador, usando cinta masking como molde en las dos caras.','Al secar, retira la cinta y lija la esquina a escuadra.','En estireno también puedes pegar un retazo con cemento para estireno y lijarlo.'],
+      prev:'Lija ligeramente las aristas antes de pintar y transporta el cubo en una caja.'}
+  ];
+  function renderProb(){
+    $('pcards').innerHTML = PROB.map(function(x){
+      var dim = x.est && state.mat === 'pvc';
+      return '<article class="pcard'+(dim?' dim':'')+'"><svg viewBox="0 0 150 130" role="img" aria-label="'+x.t+'">'+SVGP[x.id]+'</svg><div class="bd"><span class="who">'+x.who+'</span><h3>'+x.t+'</h3>'+
+        '<span class="lab">Por qué pasa</span><p class="why">'+x.why+'</p><span class="lab">Cómo lo arreglas</span><ol>'+x.fix.map(function(z){ return '<li>'+z+'</li>'; }).join('')+'</ol>'+
+        '<span class="lab">Para que no vuelva a pasar</span><p class="prev">'+x.prev+'</p></div></article>';
+    }).join('');
+  }
+
+  /* ---------- Controls ---------- */
+  function syncBar(){
+    $('m-pvc').setAttribute('aria-pressed', String(state.mat==='pvc'));
+    $('m-est').setAttribute('aria-pressed', String(state.mat==='est'));
+    if (state.union === 'mol' || (state.mat === 'est' && state.union === 'ing')) state.union = 'tope';
+    $('u-ing').disabled = state.mat === 'est';
+    $('u-ing').title = state.mat === 'est' ? 'El estireno no admite bisel' : '';
+    $('u-tope').setAttribute('aria-pressed', String(state.union==='tope'));
+    $('u-ing').setAttribute('aria-pressed', String(state.union==='ing'));
+    var fb = document.querySelector('.formula b'); if (fb) fb.textContent = 'S = ' + sForm();
+    if (document.activeElement !== $('thick')) $('thick').value = state.t[state.mat];
+    $('r-s').textContent = f(S());
+    $('r-wood').textContent = f(woodLen()/100);
+  }
+  function all(){ syncBar(); renderFicha(); renderFix(); renderPlan(); renderTable(); build(); renderSteps(); renderGlue(); renderCut(); renderRefs(); renderTex(); renderProb(); }
+
+  $('m-pvc').addEventListener('click', function(){ state.mat='pvc'; save(); all(); });
+  $('m-est').addEventListener('click', function(){ state.mat='est'; state.ribs = true; $('ribs').checked = true; save(); all(); });
+  $('c-pvc').addEventListener('click', function(){ $('m-pvc').click(); });
+  $('c-est').addEventListener('click', function(){ $('m-est').click(); });
+  $('u-tope').addEventListener('click', function(){ state.union='tope'; all(); });
+  $('u-ing').addEventListener('click', function(){ if(state.mat==='pvc'){ state.union='ing'; all(); } });
+  $('thick').addEventListener('input', function(){ var v = parseFloat(this.value); if (isFinite(v) && v >= 1 && v <= 10){ state.t[state.mat] = v; save(); syncBar(); renderFicha(); renderFix(); renderPlan(); renderTable(); build(); renderSteps(); renderRefs(); } });
+  $('ribs').addEventListener('change', function(){ state.ribs = this.checked; syncBar(); renderTable(); renderFicha(); });
+
+  function setFix(open){ $('fix').hidden = !open; $('fix-open').setAttribute('aria-expanded', String(open)); }
+  $('fix-open').addEventListener('click', function(){ var open = $('fix').hidden; setFix(open); if (open){ state.union = 'tope'; all(); $('fix').scrollIntoView({behavior:'smooth', block:'start'}); } });
+  $('fix-close').addEventListener('click', function(){ setFix(false); $('fix-open').focus(); });
+  $('fix-go').addEventListener('click', function(){ state.union = 'tope'; state.step = 4; all(); document.getElementById('armado').scrollIntoView({behavior:'smooth'}); });
+  $('prev').addEventListener('click', function(){ if(state.step>1){ state.step--; renderSteps(); refresh3d(); } });
+  $('next').addEventListener('click', function(){ if(state.step<7){ state.step++; renderSteps(); refresh3d(); } });
+  $('xray').addEventListener('click', function(){ state.xray = !state.xray; refresh3d(); });
+  $('reset').addEventListener('click', function(){ state.rx=-24; state.ry=-36; state.explode=0; $('explode').value=0; refresh3d(); });
+  $('explode').addEventListener('input', function(){ state.explode = parseFloat(this.value)||0; refresh3d(); });
+  document.querySelectorAll('.filters [data-f]').forEach(function(b){ b.addEventListener('click', function(){ state.filter = b.getAttribute('data-f'); renderRefs(); }); });
+  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(build, 150); });
+
+  state.ribs = state.mat === 'est'; $('ribs').checked = state.ribs;
+  all();
+})();
+</script>
+</body>
+</html>
